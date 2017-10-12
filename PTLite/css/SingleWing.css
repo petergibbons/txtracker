@@ -47,8 +47,8 @@ body {background: #EFEFEF;
 
 
 
-
     #selectionResultsContainer {
+      display:none;
       position: absolute;
       top: 42px;
       max-width: 250px;
@@ -56,14 +56,14 @@ body {background: #EFEFEF;
       background-color: white;
       overflow: auto;
       outline: 10px outset #0E385A;
-    font-family: "Franklin Gothic Medium";
-	font-size: 12px;
-	color: #141E36;
-	padding: 5px 10px;
-  box-shadow: -11px 10px 18px -10px rgba(0,0,0,0.68);
+      font-family: "Franklin Gothic Medium";
+      font-size: 12px;
+      color: #141E36;
+      padding: 5px 10px;
+      box-shadow: -11px 10px 18px -10px rgba(0,0,0,0.68);
     }
     #selectionResultsControl {
-      display: none;}
+      display: none; }
       #selectionResultsContainer tr:nth-child(even){background-color: #EFEFEF}
     }
     #mapOptions {

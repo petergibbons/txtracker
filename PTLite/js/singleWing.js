@@ -209,15 +209,15 @@ var map;
     resultText +="<hr />"
     resultText += "<br><b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)<br>";
     resultText += "<table class='resultsTable'>";
-    resultText += "<tr><th>Project Name</th><td>" + featureAttributes.HIGHWAY_NUMBER + "</td></tr>";
-    resultText += "<tr><th>County Name</th><td>" + featureAttributes.COUNTY_NAME + "</td></tr>";
-    resultText += "<tr><th>Description</th><td>" + featureAttributes.LAYMAN_DESCRIPTION1 + "</td></tr>";
-    resultText += "<tr><th>From Limit</th><td>" + featureAttributes.LIMITS_FROM + "</td></tr>";
-    resultText += "<tr><th>To Limit</th><td>" + featureAttributes.LIMITS_TO + "</td></tr>";
-    resultText += "<tr><th>Est. Construction Cost</th><td>$" + addCommas(Math.round(featureAttributes.EST_CONST_COST)) + "</td></tr>";
-    resultText += "<tr><th>Project Status</th><td>" + featureAttributes.PRJ_STATUS + "</td></tr>";
+      resultText += "<tr><th>Project Name</th><td>" + featureAttributes.HIGHWAY_NUMBER + "</td></tr>";
+      resultText += "<tr><th>County Name</th><td>" + featureAttributes.COUNTY_NAME + "</td></tr>";
+      resultText += "<tr><th>Description</th><td>" + featureAttributes.LAYMAN_DESCRIPTION1 + "</td></tr>";
+      resultText += "<tr><th>From Limit</th><td>" + featureAttributes.LIMITS_FROM + "</td></tr>";
+      resultText += "<tr><th>To Limit</th><td>" + featureAttributes.LIMITS_TO + "</td></tr>";
+      resultText += "<tr><th>Est. Construction Cost</th><td>$" + addCommas(Math.round(featureAttributes.EST_CONST_COST)) + "</td></tr>";
+      resultText += "<tr><th>Project Status</th><td>" + featureAttributes.PRJ_STATUS + "</td></tr>";
 
-    resultText += "<tr><th>Length</th><td>" + addCommas(Math.round(featureAttributes.PROJ_LENGTH*100)/100) + " miles</td></tr>";
+      resultText += "<tr><th>Length</th><td>" + addCommas(Math.round(featureAttributes.PROJ_LENGTH*100)/100) + " miles</td></tr>";
     resultText += "</table>";
 
     resultText += "<br>"
@@ -225,13 +225,15 @@ var map;
 
     resultText += "<b>Contact Information</b> - Updated Jan. 1, 2017<br>Contact information is from the TxDOT SiteManager System<br>";
     resultText += "<table class='resultsTable'>";
-    resultText += "<tr><th>TxDOT Contact</th><td>Joe Smith</td></tr>";
-    resultText += "<tr><th>TxDOT Phone</th><td>512-867-5309</td></tr>";
-    resultText += "<tr><th>Vendor Contact</th><td>Company X</td></tr>";
-    resultText += "<tr><th>Vendor Phone</th><td>512-867-5309</td></tr>";
+      resultText += "<tr><th>TxDOT Contact</th><td>Joe Smith</td></tr>";
+      resultText += "<tr><th>TxDOT Phone</th><td>512-867-5309</td></tr>";
+      resultText += "<tr><th>Vendor Contact</th><td>Company X</td></tr>";
+      resultText += "<tr><th>Vendor Phone</th><td>512-867-5309</td></tr>";
     resultText += "</table>";
 
+
     document.getElementById("selectionResults").innerHTML = resultText;
+    document.getElementById("selectionResultsContainer").style.display = "block";
   }
 
   function nextSelected() {
