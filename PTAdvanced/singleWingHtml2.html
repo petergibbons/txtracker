@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>TxDOT Projects - Advanced</title>
+  <link rel="stylesheet" type="text/css" href ="SingleWing2css.css">
+
+  
+  <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+  <script src="https://js.arcgis.com/3.20/"></script>
+  <script src="singleWingJs2.js"></script>
+  
+  
+</head>
+<body onload="init()" onresize="adjustApp()">
+    <div id="filterOptions">
+      <br>
+      All projects in the system are displayed when you first visit the page.  You can filter projects using the tools below.
+      
+      <br><br>
+      
+      <table class="filters">
+      <tr>
+        <td>Keyword</td>
+        <td>
+          <div id="search"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>Year</td>
+        <td>
+          From <input type="number" name="SearchYearName" id="inputYearFromValue" value="2015" min="2015" max="2060">
+          To <input type="number" name="SearchYearName" id="inputYearToValue" value="2040" min="2015" max="2060">
+        </td>
+      </tr>
+     <tr>
+        <td>Phase</td>
+        <td>
+          <!--Under construction\begins soon-->
+          <!--Construction underway or begins soon-->
+          <!--Construction begins within 4 years-->
+          <!--Construction within 4 years-->
+          <!--Construction begins in 4 to 10 years-->
+          <!--Construction in 4 to 10 years-->
+          <!--Corridor Studies, construction in 10+ years-->
+          <input id="chkCS" type="checkbox" checked=true name="phases" value="Construction Scheduled">Under construction or begins soon<br>
+          <input id="chkFC" type="checkbox" checked=true name="phases" value="Finalizing for Construction">Construction within 4 years<br>
+          <input id="chkUD" type="checkbox" checked=true name="phases" value="Under Development">Construction in 4 to 10 years<br>
+          <input id="chkLTP" type="checkbox" checked=true name="phases" value="Long Term Planning">Corridor Studies, 10+ years out<br>            
+        </td>
+      </tr>       
+      <tr>
+        <td>Type (Optional)</td>
+        <td>
+          <input id="chkBridge" type="checkbox" name="phases" value="Bridge">Bridge<br>
+  			  <input id="chkCapacity" type="checkbox" name="phases" value="Increased_Roadway_Capacity">Increased Roadway Capacity<br>					  
+  			  <input id="chkMaintenance" type="checkbox" name="phases" value="Roadway_Maintenance">Maintenance<br>
+  			  <input id="chkSafety" type="checkbox" name="phases" value="Safety">Safety<br>  
+  			  <input id="chkMiscellaneous" type="checkbox" name="phases" value="Miscellaneous">Miscellaneous<br>
+        </td>
+      </tr>    
+      <tr>
+        <td>Program (Optional)</td>
+        <td>
+  			  <input id="chkTop100" type="checkbox" name="phases" value="Top 100">Top 100<br>
+  			  <input id="chkFreight" type="checkbox" name="phases" value="Freight">Freight/Trunk<br>      			  
+  			  <input id="chkEnergySector" type="checkbox" name="phases" value="Energy Sector">Energy Sector<br>
+  			  <input id="chkUTP" type="checkbox" name="phases" value="UTP">UTP<br>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2 style='text-align:right;'>
+          <button onclick="findProjects()">Update Map</button> &nbsp;&nbsp; <button onclick="resetPage()">Reset</button>            
+        </td>
+      </tr>      
+      </table>
+      
+      <br>
+      <hr />
+      <br>
+      <div id="projectStatusOptions">
+        Summarize Results By:
+        <select id="selSummarizeBy" onchange="getSystemStats()">
+          <option value="status">Project Phase</option>
+  			  <option value="district">District</option>
+  			  <option value="year">Year</option>					  
+  			  <option value="category">Funding Category</option>
+  			</select> 
+  			<br><br>
+        <div id="projectStatusNotice"></div>
+      </div>      
+      
+    </div>
+    <div id="viewDiv"></div>
+    <div id="selectionResultsContainer">
+      <div id="selectionResultsControl">
+        <br>
+        <span id="selectionCount"></span><button onclick="previousSelected()">< Previous</button> | <button onclick="nextSelected()">Next ></button> | <button onclick="closeInfo()">Clear</button><br>
+      </div>
+      <div id="selectionResults">
+        <br>Click a project on the map for detailed information.
+      </div>
+    </div>
+    <div id="mapOptions">
+      <div id="header">
+        Maps
+      </div>
+      <div onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</div>
+      <div onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</div>
+      <div onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</div>
+      <div onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</div>
+      <div id="moreLayers">
+        Layers
+      </div>   
+      <div onclick="hideDisplayLayers()" id="hideLayersDIV" title="Click to turn off layers">Clear Layers</div>      
+      <div onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</div>
+      <div onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">COG</div>      
+      <div onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</div>
+      <div onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</div>
+      <div onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</div>      
+    </div>    
+</body>
+</html>

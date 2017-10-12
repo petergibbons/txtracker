@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0;">
+  <title>TxDOT Projects - Lite</title>
+
+  <link rel="stylesheet" type="text/css" href ="css/SingleWing.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+  <script src="https://js.arcgis.com/3.20/"></script>
+  <script src="js/singleWing.js"></script>
+
+
+
+ </head>
+<body onload="init()" onresize="adjustApp()">
+<div id="filterOptions">
+      <br>
+      <img src="images/projecttracker2.png" style="float" alt="logo1">
+<br>
+Your gateway for up-to-date <br>
+TxDOT transportation projects.</br>
+<hr />
+<script type="text/javascript" src="./MyMenu1/MyMenu1.js?h=FEA0"></script>
+<div id="MyMenu1"></div>
+<hr />
+<script type="text/javascript" src="./ExportData/ExportData.js?h=125B"></script>
+<div id="ExportData"></div>
+
+
+<table> <div style="float">
+    <tr><th class="left"><br>KEYWORD</br></th></tr>
+   <tr><th id="search";></th></tr>
+
+
+        <tr><th class="left"><br>SEARCH BY YEAR</br></th></tr>
+
+          <tr><th class="left"><input type="number" name="SearchYearName" id="inputYearFromValue" value="2015" min="2015" max="2060">
+          </th></tr>
+              <tr><th  class="left"><input type="number" name="SearchYearName" id="inputYearToValue" value="2040" min="2015" max="2060">
+        </th></tr>
+        <tr><th></th></tr>
+<tr class="left"><th> <button id="button" onclick="findProjects()" >UPDATE MAP</button></th>
+          <th> &nbsp;&nbsp; <button id="button" onclick="resetPage()">RESET</button>
+        </th></tr>
+        <th></th>
+  </div>
+</table>
+
+      <hr />
+      <div id="projectStatusOptions">
+        SUMMARY BY PHASE:
+        <br></br>
+        <div id="projectStatusNotice"></div>
+      </div>
+
+    </div>
+    <div id="viewDiv"></div>
+    <div id="selectionResultsContainer">
+      <div id="selectionResultsControl">
+        <br>
+        <span id="selectionCount"></span><button onclick="previousSelected()">< Previous</button> | <button onclick="nextSelected()">Next ></button> | <button id="button" onclick="closeInfo()">Clear</button><br>
+      </div>
+      <div id="selectionResults">
+        <br>Click a project on the map for detailed information.
+      </div>
+    </div>
+    <div id="mapOptions">
+
+<div id="header">
+      <div onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</div>
+      <hr />
+      <div onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</div>
+      <hr />
+      <div onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</div>
+      <hr />
+      <div onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</div>
+    </div>
+    <div img src="images/key.png"</div>
+
+    </div>
+    </div>
+    
+
+
+</body>
+</html>
