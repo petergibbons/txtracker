@@ -28,6 +28,7 @@ var map;
     adjustApp();
     resolveURL();
     addMap();
+    addDatePicker();
   }
 
   function adjustApp() {
@@ -37,18 +38,50 @@ var map;
     var contentsHeight = Math.round(h*.35);
 
     document.getElementById("viewDiv").style.left = contentsWidth + "px";
-    document.getElementById("viewDiv").style.width = (w - (contentsWidth*2)) + "px";
+    document.getElementById("viewDiv").style.width = (w - (contentsWidth*2.6)) + "px";
     document.getElementById("viewDiv").style.height = (h-0) + "px";
 
-    document.getElementById("filterOptions").style.left = 5 + "px";
+    //document.getElementById("filterOptions").style.left = 5 + "px";
     document.getElementById("filterOptions").style.width = (contentsWidth-10) + "px";
     document.getElementById("filterOptions").style.height = (h-0) + "px";
 
-    document.getElementById("selectionResultsContainer").style.left = w - (contentsWidth-10) + "px";
-    document.getElementById("selectionResultsContainer").style.width = (contentsWidth-15) + "px";
+    //document.getElementById("selectionResultsContainer").style.left = w - (contentsWidth-20) + "px";
+
+    document.getElementById("selectionResultsContainer").style.right = "10px";
+    document.getElementById("selectionResultsContainer").style.width = "400px";
     document.getElementById("selectionResultsContainer").style.height = (h-0) + "px";
 
-    document.getElementById("mapOptions").style.left = w - (contentsWidth+115) + "px";
+
+    var filterOptionsWidth = document.getElementById("filterOptions").width;
+
+    //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
+   // document.getElementById("mapOptions").style.left = (filterOptionsWidth+50) + "px";
+    document.getElementById("mapOptions").style.top = (h-150) + "px";
+    document.getElementById("mapOptions").style.width = "400px";
+  }
+
+  function addDatePicker() {
+    // https://bootstrap-datepicker.readthedocs.io/en/latest/index.html
+
+    // add datepicker 
+    $('.search-from-year').datepicker({
+      format: "yyyy",
+      autoclose: true,
+      minViewMode: "years",
+      startDate: "-2y",
+      endDate: "+43y"
+    }).on('changeDate', function(selected){
+      startDate = $(".search-from-year").val();
+      $('.search-to-year').datepicker('setStartDate', startDate);
+    });
+
+    $('.search-to-year').datepicker({
+      format: "yyyy",
+      autoclose: true,
+      minViewMode: "years",
+      startDate: "-2y",
+      endDate: "+43y"
+    });
   }
 
   function addMap() {
@@ -641,7 +674,7 @@ var map;
 	    if (summaryByType=="status") {
 	      var statusLabel="";
 
-        statusTable = "<table class='summaryTable'> \
+        statusTable = "<div class='summaryTableWrapper'><table class='summaryTable'> \
     	  <tr> \
       	  <th>Phase</th> \
       	  <th>Projects</th> \
@@ -681,7 +714,7 @@ var map;
       <td class='summaryTableRight'>" + addCommas(prjCount) + "</td> \
     	<td class='summaryTableRight'>$" + addCommas(Math.round(prjCost)) + "</td> \
     	</tr> \
-    </table>";
+    </table></div>";
 
 	  document.getElementById("projectStatusNotice").innerHTML = statusTable;
 	}

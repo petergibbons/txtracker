@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>TxDOT Projects - Lite</title>
 
   <link rel="stylesheet" type="text/css" href ="css/SingleWing.css">
@@ -11,19 +11,21 @@
 
   <script src="https://js.arcgis.com/3.20/"></script>
   <script src="js/singleWing.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
 
 </head>
 <body onload="init()" onresize="adjustApp()">
 <div id="filterOptions">
       <br>
-      <img src="images/projecttracker2.png" style="float" alt="logo1">
+      <img src="images/projecttracker2.png" style="float" alt="Project Tracker 2.0">
 <br>
 Your gateway for up-to-date <br>
-TxDOT transportation projects.</br>
+TxDOT transportation projects.<br>
 <hr />
 <script type="text/javascript" src="./MyMenu1/MyMenu1.js?h=FEA0"></script>
 <div id="MyMenu1"></div>
@@ -31,30 +33,39 @@ TxDOT transportation projects.</br>
 <script type="text/javascript" src="./ExportData/ExportData.js?h=125B"></script>
 <div id="ExportData"></div>
 
-
-<table> <div style="float">
-    <tr><th class="left"><br>KEYWORD</br></th></tr>
-   <tr><th id="search";></th></tr>
-
-
-        <tr><th class="left"><br>SEARCH BY YEAR</br></th></tr>
-
-          <tr><th class="left"><input type="number" name="SearchYearName" id="inputYearFromValue" value="2015" min="2015" max="2060">
-          </th></tr>
-              <tr><th  class="left"><input type="number" name="SearchYearName" id="inputYearToValue" value="2040" min="2015" max="2060">
-        </th></tr>
-        <tr><th></th></tr>
-<tr class="left"><th> <button id="button" onclick="findProjects()" >UPDATE MAP</button></th>
-          <th> &nbsp;&nbsp; <button id="button" onclick="resetPage()">RESET</button>
-        </th></tr>
-        <th></th>
+<div class="search_options">
+  
+  <div class="search_keyword">
+    <h3>KEYWORD</h3>
+    <div id="search"></div>
   </div>
-</table>
+  
+  <div class="search_year">
+    <h3>SEARCH BY YEAR</h3>
+    <div id="searchByYear" class="row">
+      <div class="col-lg-6">
+        <input type="text" placeholder="From" data-date-format="yyyy" name="SearchYearName" id="inputYearFromValue" value="2015" class="form-control search-from-year">
+      </div>
+      <div class="col-lg-6">
+        <input type="text" placeholder="To" data-date-format="yyyy" name="SearchYearName" id="inputYearToValue" value="2040" class="form-control search-to-year">
+      </div>
+    </div>
+  </div>
 
+  <div class="search_actions row">
+    <div class="col-lg-6">
+      <button class="button" onclick="findProjects()" class="btn btn-primary btn-lg letter-spaced">UPDATE MAP</button>
+    </div>
+    <div class="col-lg-6">
+      <button class="button" onclick="resetPage()" class="btn btn-primary btn-lg letter-spaced">RESET</button>
+    </div>
+  </div>
+
+</div>
       <hr />
       <div id="projectStatusOptions">
         SUMMARY BY PHASE:
-        <br></br>
+        <br><br>
         <div id="projectStatusNotice"></div>
       </div>
 
@@ -63,25 +74,21 @@ TxDOT transportation projects.</br>
     <div id="selectionResultsContainer">
       <div id="selectionResultsControl">
         <br>
-        <span id="selectionCount"></span><button onclick="previousSelected()">< Previous</button> | <button onclick="nextSelected()">Next ></button> | <button id="button" onclick="closeInfo()">Clear</button><br>
+        <span id="selectionCount"></span><button onclick="previousSelected()">< Previous</button> | <button onclick="nextSelected()">Next ></button> | <button class="button" onclick="closeInfo()">Clear</button><br>
       </div>
       <div id="selectionResults">
         <br>Click a project on the map for detailed information.
       </div>
     </div>
     <div id="mapOptions">
-
-<div id="header">
-      <div onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</div>
-      <hr />
-      <div onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</div>
-      <hr />
-      <div onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</div>
-      <hr />
-      <div onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</div>
-    </div>
-    <div img src="images/key.png"</div>
-
+      <div><img src="images/key.png"></div>
+      <div id="header2" class="btn-group">
+        <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
+        <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
+        <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
+        <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
+      </div>
+      
     </div>
     </div>
     
