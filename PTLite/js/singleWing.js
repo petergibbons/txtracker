@@ -32,30 +32,37 @@ var map;
   }
 
   function adjustApp() {
+
     var w = window.innerWidth;
     var h = window.innerHeight;
     var contentsWidth = Math.round(w*.25);
     var contentsHeight = Math.round(h*.35);
 
-    document.getElementById("viewDiv").style.left = contentsWidth + "px";
+    document.getElementById("viewDiv").style.left = (contentsWidth) + "px";
     document.getElementById("viewDiv").style.width = (w - (contentsWidth*2.6)) + "px";
     document.getElementById("viewDiv").style.height = (h-0) + "px";
 
-    //document.getElementById("filterOptions").style.left = 5 + "px";
-    document.getElementById("filterOptions").style.width = (contentsWidth-10) + "px";
+    document.getElementById("filterOptions").style.left = "0px";
+    //alert(w);
+    if(w < 355){
+      document.getElementById("filterOptions").style.width = "356px";
+    }else{
+      document.getElementById("filterOptions").style.width = (contentsWidth-10) + "px";
+    }
+    
     document.getElementById("filterOptions").style.height = (h-0) + "px";
 
     //document.getElementById("selectionResultsContainer").style.left = w - (contentsWidth-20) + "px";
 
-    document.getElementById("selectionResultsContainer").style.right = "10px";
+    document.getElementById("selectionResultsContainer").style.right = "0px";
+    document.getElementById("selectionResultsContainer").style.top = "0px";
     document.getElementById("selectionResultsContainer").style.width = "400px";
     document.getElementById("selectionResultsContainer").style.height = (h-0) + "px";
 
-
-    var filterOptionsWidth = document.getElementById("filterOptions").width;
+    var filterOptionsWidth = getComputedStyle(document.getElementById("filterOptions")).width;
 
     //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
-   // document.getElementById("mapOptions").style.left = (filterOptionsWidth+50) + "px";
+    document.getElementById("mapOptions").style.left = filterOptionsWidth;
     document.getElementById("mapOptions").style.top = (h-150) + "px";
     document.getElementById("mapOptions").style.width = "400px";
   }
@@ -239,9 +246,9 @@ var map;
 
     var featureAttributes = popup.features[selectIndex].attributes;
     var resultText = "";
-    resultText +="<hr />"
-    resultText += "<br><b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)<br>";
-    resultText += "<table class='resultsTable'>";
+    //resultText +="<hr />"
+    //resultText += "<br><b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)<br>";
+    resultText += "<table class='resultsTable table'>";
       resultText += "<tr><th>Project Name</th><td>" + featureAttributes.HIGHWAY_NUMBER + "</td></tr>";
       resultText += "<tr><th>County Name</th><td>" + featureAttributes.COUNTY_NAME + "</td></tr>";
       resultText += "<tr><th>Description</th><td>" + featureAttributes.LAYMAN_DESCRIPTION1 + "</td></tr>";
@@ -257,7 +264,7 @@ var map;
     resultText +="<hr />"
 
     resultText += "<b>Contact Information</b> - Updated Jan. 1, 2017<br>Contact information is from the TxDOT SiteManager System<br>";
-    resultText += "<table class='resultsTable'>";
+    resultText += "<table class='resultsTable table'>";
       resultText += "<tr><th>TxDOT Contact</th><td>Joe Smith</td></tr>";
       resultText += "<tr><th>TxDOT Phone</th><td>512-867-5309</td></tr>";
       resultText += "<tr><th>Vendor Contact</th><td>Company X</td></tr>";
@@ -674,11 +681,11 @@ var map;
 	    if (summaryByType=="status") {
 	      var statusLabel="";
 
-        statusTable = "<div class='summaryTableWrapper'><table class='summaryTable'> \
+        statusTable = "<div class='summaryTableWrapper'><h3>SUMMARY BY PHASE:</h3><table class='summaryTable table'> \
     	  <tr> \
       	  <th>Phase</th> \
       	  <th>Projects</th> \
-      	  <th>Est. Construction Cost</th> \
+      	  <th>Est. Cost</th> \
     	  </tr>";
 
     	  for (var i=0;i<summaryTableArray.length;i++) {
