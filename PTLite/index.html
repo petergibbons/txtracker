@@ -32,72 +32,69 @@
     <script type="text/javascript" src="./ExportData/ExportData.js?h=125B"></script>
     <div id="ExportData"></div>
 
-  <div class="search_options">
-  
-    <div class="search_keyword">
-      <h3>KEYWORD</h3>
-      <div id="search"></div>
-    </div>
-    
-    <div class="search_year">
-      <h3 class="letter-spaced">SEARCH BY YEAR</h3>
-      <div id="searchByYear" class="row">
+    <div class="search_options">
+      <div class="search_keyword">
+        <h3>KEYWORD</h3>
+        <div id="search"></div>
+      </div>
+      
+      <div class="search_year">
+        <h3 class="letter-spaced">SEARCH BY YEAR</h3>
+        <div id="searchByYear" class="row">
+          <div class="col-lg-6">
+            <input type="text" placeholder="From" data-date-format="yyyy" name="SearchYearName" id="inputYearFromValue" value="2015" class="form-control search-from-year">
+          </div>
+          <div class="col-lg-6">
+            <input type="text" placeholder="To" data-date-format="yyyy" name="SearchYearName" id="inputYearToValue" value="2040" class="form-control search-to-year">
+          </div>
+        </div>
+      </div>
+
+      <div class="search_actions row">
         <div class="col-lg-6">
-          <input type="text" placeholder="From" data-date-format="yyyy" name="SearchYearName" id="inputYearFromValue" value="2015" class="form-control search-from-year">
+          <button onclick="findProjects()" class="btn letter-spaced button">UPDATE MAP</button>
         </div>
         <div class="col-lg-6">
-          <input type="text" placeholder="To" data-date-format="yyyy" name="SearchYearName" id="inputYearToValue" value="2040" class="form-control search-to-year">
+          <button onclick="resetPage()" class="btn letter-spaced button">RESET</button>
         </div>
       </div>
-    </div>
-
-    <div class="search_actions row">
-      <div class="col-lg-6">
-        <button class="button" onclick="findProjects()" class="btn btn-primary btn-lg letter-spaced">UPDATE MAP</button>
+      
+      <div class="center advancedSearch">
+        
+        Switch to advanced search
       </div>
-      <div class="col-lg-6">
-        <button class="button" onclick="resetPage()" class="btn btn-primary btn-lg letter-spaced">RESET</button>
-      </div>
-    </div>
-    
-    <div class="center advancedSearch">
-      Switch to advanced search
-    </div>
-
-  </div><!-- .searchOptions -->
+    </div><!-- .searchOptions -->
 
     <hr />
     <div id="projectStatusOptions">
-      <div id="projectStatusNotice"> </div>
+      <div id="projectStatusNotice"></div>
     </div>
 
-  </div>
-  <div id="viewDiv"></div>
-  <div id="selectionResultsContainer">
-    <div id="selectionResultsContainerWrapper">
-      <div id="selectionResultsControl">
-        <div class="center text-center project-summary">
-          <b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)
-        </div>
-        <button onclick="previousSelected()" class="btn-paging">< prev</button> <button onclick="nextSelected()" class="btn-paging">next ></button> <span id="selectionCount"></span> <button class="button btn-close pull-right" onclick="closeInfo()">CLEAR</button><br>
+  </div><!-- filterOptions -->
+<div id="viewDiv"></div>
+<div id="selectionResultsContainer">
+  <div id="selectionResultsContainerWrapper">
+    <div id="selectionResultsControl">
+      <div class="center text-center project-summary">
+        <b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)
       </div>
-      <div id="selectionResults">
-        <br>Click a project on the map for detailed information.
-      </div>
+      <button onclick="previousSelected()" class="btn-paging">&lt; prev</button> <button onclick="nextSelected()" class="btn-paging">next &gt;</button> <span id="selectionCount"></span> <button class="button btn-close pull-right" onclick="closeInfo()">CLEAR</button><br>
     </div>
-  </div><!-- #selectionResultsContainer -->
-  <div id="mapOptions">
-    <div class="legend">
-      <img src="images/key.png">
+    <div id="selectionResults">
+      <p>Click a project on the map for detailed information.</p>
     </div>
-    <div id="header2" class="btn-group">
-      <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
-      <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
-      <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
-      <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
-    </div>
-    
   </div>
-</div>
+</div><!-- #selectionResultsContainer -->
+<div id="mapOptions">
+  <div class="legend">
+    <img src="images/key.png" alt="Map Legend">
+  </div><!-- legend -->
+  <div id="header2" class="btn-group">
+    <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
+    <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
+    <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
+    <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
+  </div><!-- header2-->
+</div><!-- mapOptions -->
 </body>
 </html>

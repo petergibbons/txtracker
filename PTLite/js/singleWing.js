@@ -1,4 +1,4 @@
-var map;
+  var map;
   var query;
   var queryTask;
   var featureLayer;
@@ -44,8 +44,9 @@ var map;
 
     document.getElementById("filterOptions").style.left = "0px";
     //alert(w);
-    if(w < 355){
+    if(w < 955){
       document.getElementById("filterOptions").style.width = "356px";
+      //alert(w);
     }else{
       document.getElementById("filterOptions").style.width = (contentsWidth-10) + "px";
     }
