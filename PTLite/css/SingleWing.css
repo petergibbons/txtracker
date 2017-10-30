@@ -4,45 +4,34 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-#viewDiv {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  /*min-width: 947px;*/
-  min-width: 75%;
-  overflow: hidden;
-}
-#filterOptions {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 400px;
-  height: 300px;
-  overflow: auto;
-  background-image: url("https://s26.postimg.org/mjuxkr9mx/Blue_BKG.png");
-  
-  background-size: 100% 100%;
-  font-size: 12px;
-  color: #ffffff;
-  box-shadow: 10px 10px 18px -10px rgba(0,0,0,0.68);
-  text-align: center;
-  min-width: 300px !important;
-}
-
 .letter-spaced { letter-spacing: 2px; }
+.no-padding { padding-left:0px !important; padding-right: 0px !important; }
 
-.search_options { width:80%; margin: 0 auto; }
-.search_options h3 { text-align: left; font-size: 13px; font-weight: 800; letter-spacing: 2px }
+#brand { font-size: 12px; font-weight: 800px; }
+#brand img { margin: 20px auto 5px; }
+#brand p { padding: 0 10px; }
+
+.search_options { 
+  width: 80%; 
+  margin: 0 auto; 
+}
+.search_options h3 { 
+  text-align: left; 
+  font-size: 13px; 
+  font-weight: 800; 
+  letter-spacing: 2px 
+}
 .search_options button { width: 100%; }
 
 .search_actions { margin-top: 20px; }
 
-.advancedSearch { margin-top: 25px; font-weight: 700; }
+.advancedSearch { 
+  margin-top: 25px; 
+  font-weight: 700;
+  text-align: center;
+}
 
 #searchByYear input { color: #333; }
-
-.left { float: left; padding-left: 10px; }
-.right { float: right; }
 
 .button {
   font-size: 12px;
@@ -52,26 +41,26 @@ body {
   border: none;
   font-weight: bold;
   letter-spacing: 2px;
-  padding:  10px;
+  padding: 10px;
 }
+
 #selectionResultsContainer { 
   background-image: url(https://s26.postimg.org/mjuxkr9mx/Blue_BKG.png);
   display: none;
   position: absolute;
-  top:20px;
-  max-width: 300px;
+  top: 20px;
+  
   max-height: 800px;
   background-size: 100% 100%;
   -webkit-box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
-box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
 
 }
 #selectionResultsContainerWrapper {
-  width: 90%;
+  width: 95%;
   margin: 20px auto;
   background-color: white;
-  /*font-family: "Franklin Gothic Medium";*/
   font-size: 12px;
   color: #141E36;
   padding: 10px;
@@ -118,7 +107,6 @@ box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
   background-color: #CA7C29;
   padding: 2px;
   color: white;
-  /*font-family: "Franklin Gothic Medium";*/
   font-size: 12px;
 }
 
@@ -129,14 +117,10 @@ box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
 
 .summaryTable {
   background: #ffffff;
-  /*font-family: "Franklin Gothic Medium";*/
   font-size: 10px;
   color: #0C1B2A;
-  margin:auto;
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  margin: auto;
+  padding: 10px;
   border-radius: 15px 15px 15px 15px;
   -moz-border-radius: 15px 15px 15px 15px;
   -webkit-border-radius: 15px 15px 15px 15px;
@@ -144,7 +128,7 @@ box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
 }
 
 .summaryTableWrapper {
-  padding: 20px 15px;
+  padding: 20px 10px;
   margin-bottom:10px;
   background: #fff;
   width: 90%;
@@ -155,7 +139,8 @@ box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
   min-height: 390px;
 
 }
-.summaryTableWrapper h3 { color: #13385B;
+.summaryTableWrapper h3 { 
+  color: #13385B;
   font-size: 16px; 
   text-align:left; 
   font-weight: 600; 
@@ -176,18 +161,17 @@ box-shadow: 5px 5px 21px 0px rgba(0,0,0,0.75);
 .summaryTable th:last-child{
   border-radius:0 5px 5px 0;
 }
-.summaryTable tr:first-child{ margin-top:20px; }
+.summaryTable tr:first-child { margin-top: 20px; }
 
-.summaryTable tr:nth-child(even){ background-color: #EFEFEF }
+.summaryTable tr:nth-child(even) { background-color: #EFEFEF; }
 
 .summaryTableLeft { text-align: left; }
 
 .summaryTableRight { text-align: right; }
 
 .summaryTable td {
-  font-size: 12px;
-  /*font-family: "Franklin Gothic Medium";*/
-   color: #0F385A;
+  font-size: 9px;
+  color: #0F385A;
   }
 
 .resultsTable th {
@@ -201,14 +185,7 @@ select {
   padding: 5px;
   border-radius: 5px;
 }
-#inputYearFromValue {
-  padding: 5px;
-  border-radius: 5px;
-}
-#inputYearToValue {
-  padding: 5px;
-  border-radius: 5px;
-}
+
 .resultsTable {
   margin-top: 15px;
   width: 100%;
@@ -216,7 +193,7 @@ select {
 .resultsTable th {
   width: 30%;
 }
-.arcgisSearch .searchGroup .searchBtn {
+/*.arcgisSearch .searchGroup .searchBtn {
   color: #333;
   font-size: 20px;
   float: right;
@@ -226,7 +203,7 @@ select {
   width: 200px;
   float: none;
 }
-.arcgisSearch .searchGroup .searchInput { width: 98% !important; }
+.arcgisSearch .searchGroup .searchInput { width: 98% !important; }*/
 .filters td {
   text-align: left;
   background-color: white;
@@ -243,4 +220,79 @@ select {
   margin: auto;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+
+/*
+ * End Baked in
+ * ---------------------------------------------------
+*/
+
+#viewDiv {
+  position: absolute;
+  left: 5px;
+  width: 100%;
+  background: #EFEFEF;
+}
+#filterOptions {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+
+body, html, .row-offcanvas {
+  height: 100%;
+}
+
+#sidebar {
+  width: inherit;
+  width: 25%;
+  min-width: 280px;
+  /*max-width: 450px;*/
+  float: left;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-image: url("https://s26.postimg.org/mjuxkr9mx/Blue_BKG.png");
+  background-size: 100% 100%;
+  box-shadow: 10px 10px 18px -10px rgba(0,0,0,0.68);
+}
+#main {
+  height: 100%;
+  overflow: auto;
+}
+
+
+
+/*
+ * Queries
+ * --------------------------------------------------
+*/
+@media screen and (max-width: 768px) {
+
+  .searchBtn { display:none !important; }
+
+
+  /*.row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    width: calc(100% + 220px);
+  }
+    
+  .row-offcanvas-left
+  {
+    left: -220px;
+  }
+
+  .row-offcanvas-left.active {
+    left: 0;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+  }*/
 }

@@ -24,6 +24,16 @@
   var selectIndex = 0;
   var totalFeaturesSelected = 0;
 
+
+  $(document).ready(function() {
+    $('.close-info').on('click',function() {
+        $('#selectionResultsContainer').fadeOut();
+    });
+    $('#search_input').addClass('form-control');
+  });
+
+
+
   function init() {
     adjustApp();
     resolveURL();
@@ -38,22 +48,10 @@
     var contentsWidth = Math.round(w*.25);
     var contentsHeight = Math.round(h*.35);
 
-    document.getElementById("viewDiv").style.left = (contentsWidth) + "px";
-    document.getElementById("viewDiv").style.width = (w - (contentsWidth*2.6)) + "px";
     document.getElementById("viewDiv").style.height = (h-0) + "px";
+    document.getElementById("main").style.height = (h-0) + "px";
 
-    document.getElementById("filterOptions").style.left = "0px";
-    //alert(w);
-    if(w < 955){
-      document.getElementById("filterOptions").style.width = "356px";
-      //alert(w);
-    }else{
-      document.getElementById("filterOptions").style.width = (contentsWidth-10) + "px";
-    }
-    
     document.getElementById("filterOptions").style.height = (h-0) + "px";
-
-    //document.getElementById("selectionResultsContainer").style.left = w - (contentsWidth-20) + "px";
 
     document.getElementById("selectionResultsContainer").style.right = "0px";
     document.getElementById("selectionResultsContainer").style.top = "0px";
@@ -63,9 +61,10 @@
     var filterOptionsWidth = getComputedStyle(document.getElementById("filterOptions")).width;
 
     //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
-    document.getElementById("mapOptions").style.left = filterOptionsWidth;
+    //document.getElementById("mapOptions").style.left = filterOptionsWidth;
     document.getElementById("mapOptions").style.top = (h-150) + "px";
     document.getElementById("mapOptions").style.width = "400px";
+
   }
 
   function addDatePicker() {
@@ -168,27 +167,27 @@
           map.addLayer(tiled);
 
   	      var theOutFields = [
-        	'CONTROL_SECT_JOB',
-        	'DISTRICT_NAME',
-        	'COUNTY_NAME',
-        	'HIGHWAY_NUMBER',
-        	'PROJ_LENGTH',
-        	'PROJ_CLASS',
-        	'EST_CONST_COST',
-        	'TYPE_OF_WORK',
-        	'LIMITS_FROM',
-        	'LIMITS_TO',
-        	'LAYMAN_DESCRIPTION1',
-        	'PRJ_STATUS',
-        	'PRJ_TIER',
-        	'UTP_TOTAL_SCORE',
-        	'UTP_STRATEGIC_SCORE',
-        	'NBR_LET_YEAR',
-        	'CONTROL_SECTION',
-        	'UTP_STR_GOAL_TOP100',
-        	'UTP_STR_GOAL_ENERGY_SECTOR',
-        	'UTP_STR_GOAL_TRUNK_FREIGHT',
-        	'TPP_CATEGORY_P2'
+          	'CONTROL_SECT_JOB',
+          	'DISTRICT_NAME',
+          	'COUNTY_NAME',
+          	'HIGHWAY_NUMBER',
+          	'PROJ_LENGTH',
+          	'PROJ_CLASS',
+          	'EST_CONST_COST',
+          	'TYPE_OF_WORK',
+          	'LIMITS_FROM',
+          	'LIMITS_TO',
+          	'LAYMAN_DESCRIPTION1',
+          	'PRJ_STATUS',
+          	'PRJ_TIER',
+          	'UTP_TOTAL_SCORE',
+          	'UTP_STRATEGIC_SCORE',
+          	'NBR_LET_YEAR',
+          	'CONTROL_SECTION',
+          	'UTP_STR_GOAL_TOP100',
+          	'UTP_STR_GOAL_ENERGY_SECTOR',
+          	'UTP_STR_GOAL_TRUNK_FREIGHT',
+          	'TPP_CATEGORY_P2'
         	];
 
           var infoTemplate = new esri.InfoTemplate("Project:","");
@@ -300,7 +299,7 @@
   }
 
   function closeInfo() {
-	  document.getElementById("selectionResults").innerHTML = "<br>Click a project on the map for more information.<br>";
+	  document.getElementById("selectionResults").innerHTML = "<button type='button' class='close close-info' aria-label='Close'><span aria-hidden='true'>&times;</span></button><br>Click a project on the map for more information.<br>";
 	  selectIndex = 0;
 	  popup.clearFeatures();
     updateNav();

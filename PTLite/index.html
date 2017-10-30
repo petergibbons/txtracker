@@ -3,78 +3,111 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <title>TxDOT Projects - Lite branched</title>
+  <title>TxDOT Projects - Lite bootstrap</title>
 
   <link rel="stylesheet" type="text/css" href ="css/SingleWing.css">
   <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 
   <script src="https://js.arcgis.com/3.20/"></script>
-  <script src="js/singleWing.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+  <script type="text/javascript" src="./MyMenu1/MyMenu1.js?h=FEA0"></script>
+  <script type="text/javascript" src="./ExportData/ExportData.js?h=125B"></script>
 
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
+  <script src="js/singleWing.js"></script>
 
 </head>
 <body onload="init()" onresize="adjustApp()">
-<div id="filterOptions">
-    <br>
-    <img src="images/ProjectTracker2.png" alt="Project Tracker 2.0" />
-  
-    <p>Your gateway for up-to-date TxDOT transportation projects.</p>
-    <hr />
-    <script type="text/javascript" src="./MyMenu1/MyMenu1.js?h=FEA0"></script>
-    <div id="MyMenu1"></div>
-    <hr />
-    <script type="text/javascript" src="./ExportData/ExportData.js?h=125B"></script>
-    <div id="ExportData"></div>
 
-    <div class="search_options">
-      <div class="search_keyword">
-        <h3>KEYWORD</h3>
-        <div id="search"></div>
-      </div>
-      
-      <div class="search_year">
-        <h3 class="letter-spaced">SEARCH BY YEAR</h3>
-        <div id="searchByYear" class="row">
-          <div class="col-lg-6">
-            <input type="text" placeholder="From" data-date-format="yyyy" name="SearchYearName" id="inputYearFromValue" value="2015" class="form-control search-from-year">
-          </div>
-          <div class="col-lg-6">
-            <input type="text" placeholder="To" data-date-format="yyyy" name="SearchYearName" id="inputYearToValue" value="2040" class="form-control search-to-year">
-          </div>
-        </div>
-      </div>
 
-      <div class="search_actions row">
-        <div class="col-lg-6">
-          <button onclick="findProjects()" class="btn letter-spaced button">UPDATE MAP</button>
-        </div>
-        <div class="col-lg-6">
-          <button onclick="resetPage()" class="btn letter-spaced button">RESET</button>
-        </div>
-      </div>
-      
-      <div class="center advancedSearch">
-        
-        Switch to advanced search
-      </div>
-    </div><!-- .searchOptions -->
+<div class="row-offcanvas row-offcanvas-left">
+  <div id="sidebar" class="sidebar-offcanvas">
+      <div class="col-md-12 no-padding">
+                    
 
-    <hr />
-    <div id="projectStatusOptions">
-      <div id="projectStatusNotice"></div>
-    </div>
+            <div id="filterOptions">
+              <div id="brand" class="text-center letter-spaced">
+                <img src="images/ProjectTracker2.png" alt="Project Tracker 2.0" class="img-responsive" />
+                <p>Your gateway for up-to-date TxDOT transportation projects.</p>
+              </div>
+              
+                <hr />
+                
+                <div id="MyMenu1" class="text-center"></div>
+                <hr />
+                <div id="ExportData" class="text-center"></div>
 
-  </div><!-- filterOptions -->
-<div id="viewDiv"></div>
-<div id="selectionResultsContainer">
+                <div class="search_options">
+                  <div class="search_keyword">
+                    <h3>KEYWORD</h3>
+                    <div id="search"></div>
+                  </div>
+                  
+                  <div class="search_year">
+                    <h3 class="letter-spaced">SEARCH BY YEAR</h3>
+                    <div id="searchByYear" class="row">
+                      <div class="col-lg-6">
+                        <input type="text" placeholder="From" data-date-format="yyyy" name="SearchYearName" id="inputYearFromValue" value="2015" class="form-control search-from-year">
+                      </div>
+                      <div class="col-lg-6">
+                        <input type="text" placeholder="To" data-date-format="yyyy" name="SearchYearName" id="inputYearToValue" value="2040" class="form-control search-to-year">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="search_actions row">
+                    <div class="col-lg-6">
+                      <button onclick="findProjects()" class="btn letter-spaced button btn-md">UPDATE MAP</button>
+                    </div>
+                    <div class="col-lg-6">
+                      <button onclick="resetPage()" class="btn letter-spaced button btn-md">RESET</button>
+                    </div>
+                  </div>
+                  
+                  <div class="center advancedSearch">
+                    
+                    Switch to advanced search
+                  </div>
+                </div><!-- .searchOptions -->
+
+                <hr />
+                <div id="projectStatusOptions">
+                  <div id="projectStatusNotice"></div>
+                </div>
+            </div><!-- filterOptions -->
+      </div>
+  </div>
+  <div id="main">
+      <div class="col-md-12">
+          <p class="visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
+          </p>
+          
+                      <div id="viewDiv"></div>
+                      <div id="mapOptions">
+                        <div class="legend">
+                          <img src="images/key.png" alt="Map Legend">
+                        </div><!-- legend -->
+                        <div id="header2" class="btn-group">
+                          <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
+                          <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
+                          <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
+                          <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
+                        </div><!-- header2-->
+                      </div><!-- mapOptions -->                        
+
+
+      </div>
+  </div><!-- /main -->
+  <div id="selectionResultsContainer">
   <div id="selectionResultsContainerWrapper">
     <div id="selectionResultsControl">
+      <button type="button" class="close close-info" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <div class="center text-center project-summary">
         <b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)
       </div>
@@ -85,16 +118,9 @@
     </div>
   </div>
 </div><!-- #selectionResultsContainer -->
-<div id="mapOptions">
-  <div class="legend">
-    <img src="images/key.png" alt="Map Legend">
-  </div><!-- legend -->
-  <div id="header2" class="btn-group">
-    <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
-    <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
-    <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
-    <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
-  </div><!-- header2-->
-</div><!-- mapOptions -->
+</div><!--/row-offcanvas -->
+
+
+
 </body>
 </html>
