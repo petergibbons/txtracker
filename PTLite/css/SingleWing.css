@@ -299,6 +299,7 @@ body, html, .row-offcanvas {
 
   .searchBtn { display:none !important; }
   .searchInput { 
+    z-index: 0 !important;
     width: 185px !important;
     -moz-border-radius-topright: 5px !important;
     -moz-border-radius-bottomright: 5px !important;
