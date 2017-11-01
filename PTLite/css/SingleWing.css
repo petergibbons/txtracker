@@ -29,7 +29,13 @@ body {
   margin-top: 25px; 
   font-weight: 700;
   text-align: center;
+
 }
+.advancedSearch a { 
+  color: #FFF;
+  font-size: 16px; 
+}
+.advancedSearch a:hover { color: #CCC; }
 
 #searchByYear input { color: #333; }
 
@@ -269,9 +275,39 @@ body, html, .row-offcanvas {
  * Queries
  * --------------------------------------------------
 */
-@media screen and (max-width: 768px) {
+
+/* stack buttons on small screen */
+  @media (max-width: 991px) {
+    .btn-group.btn-group-responsive > .btn {
+      display: block;
+      width: 100%;
+    }
+    
+    /* making the border-radius correct */
+    .btn-group.btn-group-responsive > .btn:first-child { border-radius: 6px 6px 0 0; }
+    .btn-group.btn-group-responsive > .btn:first-child:not(:last-child):not(.dropdown-toggle) { border-top-right-radius: 6px; }
+    .btn-group.btn-group-responsive > .btn:last-child:not(:first-child) { border-radius: 0 0 6px 6px; }
+    
+    /* fixing margin */
+    .btn-group.btn-group-responsive .btn + .btn { margin-left: 0; }
+
+    #mapOptions { top: 632px !important; }
+    
+  }
+
+@media screen and (max-width: 1400px) {
 
   .searchBtn { display:none !important; }
+  .searchInput { 
+    width: 185px !important;
+    -moz-border-radius-topright: 5px !important;
+    -moz-border-radius-bottomright: 5px !important;
+
+    -webkit-border-top-right-radius: 5px !important;
+    -webkit-border-bottom-right-radius: 5px !important;
+   }
+  .button, .search-from-year { margin-bottom: 10px !important; }
+
 
 
   /*.row-offcanvas {
