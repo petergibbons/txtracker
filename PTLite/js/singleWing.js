@@ -63,7 +63,7 @@
     //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
     //document.getElementById("mapOptions").style.left = filterOptionsWidth;
     
-    if( h <= 1000 ){
+    if( w <= 1000 ){
       document.getElementById("mapOptions").style.top = (h-240) + "px";
     }else {
       document.getElementById("mapOptions").style.top = (h-150) + "px";
