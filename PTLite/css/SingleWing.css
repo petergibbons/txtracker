@@ -2,6 +2,7 @@ body {
   background: #EFEFEF;
   /*font-family: "Franklin Gothic Medium";*/
   font-family: 'Roboto', sans-serif;
+  height:100%;
 }
 
 .letter-spaced { letter-spacing: 2px; }
@@ -291,7 +292,6 @@ body, html, .row-offcanvas {
     /* fixing margin */
     .btn-group.btn-group-responsive .btn + .btn { margin-left: 0; }
 
-    #mapOptions { top: 632px !important; }
     
   }
 

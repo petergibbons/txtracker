@@ -62,7 +62,12 @@
 
     //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
     //document.getElementById("mapOptions").style.left = filterOptionsWidth;
-    document.getElementById("mapOptions").style.top = (h-150) + "px";
+    
+    if( h <= 1000 ){
+      document.getElementById("mapOptions").style.top = (h-240) + "px";
+    }else {
+      document.getElementById("mapOptions").style.top = (h-150) + "px";
+    }
     document.getElementById("mapOptions").style.width = "400px";
 
   }
