@@ -1,11 +1,10 @@
- var map;
+  var map;
   var query;
   var queryTask;
   var featureLayer;
   var theSearchArea = "";
   var theSearchValue = "";
   var tiled;
-  var TxDOTVectorTileLayer;
   var imagery;
   var streets;
   var grayCanvas;
@@ -18,44 +17,83 @@
   var senateSearchLyr;
   var houseSearchLyr;
   var mpoSearchLyr;
-  var senateDisplayLyr;
-  var houseDisplayLyr;
-  var mpoDisplayLyr;
-  var aadtDisplayLyr;
-  var cogDisplayLyr;
   var projectsUrl;
   var spatialQueryIDs;
   var definitionExpression = "";
   var popup;
   var selectIndex = 0;
   var totalFeaturesSelected = 0;
-  var infoTemplate;
+
+
+  $(document).ready(function() {
+    $('.close-info, .btn-close').on('click',function() {
+        $('#selectionResultsContainer').fadeOut();
+    });
+    $('#search_input').addClass('form-control');
+  });
+
+
 
   function init() {
     adjustApp();
     resolveURL();
     addMap();
+    addDatePicker();
   }
 
   function adjustApp() {
+
     var w = window.innerWidth;
     var h = window.innerHeight;
-    var contentsWidth = Math.round(w*.27);
+    var contentsWidth = Math.round(w*.25);
     var contentsHeight = Math.round(h*.35);
 
-    document.getElementById("viewDiv").style.left = contentsWidth + "px";
-    document.getElementById("viewDiv").style.width = (w - (contentsWidth*2)) + "px";
     document.getElementById("viewDiv").style.height = (h-0) + "px";
+    document.getElementById("main").style.height = (h-0) + "px";
 
-    document.getElementById("filterOptions").style.left = 5 + "px";
-    document.getElementById("filterOptions").style.width = (contentsWidth-10) + "px";
     document.getElementById("filterOptions").style.height = (h-0) + "px";
 
-    document.getElementById("selectionResultsContainer").style.left = w - (contentsWidth-10) + "px";
-    document.getElementById("selectionResultsContainer").style.width = (contentsWidth-15) + "px";
+    document.getElementById("selectionResultsContainer").style.right = "0px";
+    document.getElementById("selectionResultsContainer").style.top = "0px";
+    document.getElementById("selectionResultsContainer").style.width = "400px";
     document.getElementById("selectionResultsContainer").style.height = (h-0) + "px";
 
-    document.getElementById("mapOptions").style.left = w - (contentsWidth+115) + "px";
+    var filterOptionsWidth = getComputedStyle(document.getElementById("filterOptions")).width;
+
+    //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
+    //document.getElementById("mapOptions").style.left = filterOptionsWidth;
+    
+    if( w <= 1000 ){
+      document.getElementById("mapOptions").style.top = (h-240) + "px";
+    }else {
+      document.getElementById("mapOptions").style.top = (h-150) + "px";
+    }
+    document.getElementById("mapOptions").style.width = "400px";
+
+  }
+
+  function addDatePicker() {
+    // https://bootstrap-datepicker.readthedocs.io/en/latest/index.html
+
+    // add datepicker 
+    $('.search-from-year').datepicker({
+      format: "yyyy",
+      autoclose: true,
+      minViewMode: "years",
+      startDate: "-2y",
+      endDate: "+43y"
+    }).on('changeDate', function(selected){
+      startDate = $(".search-from-year").val();
+      $('.search-to-year').datepicker('setStartDate', startDate);
+    });
+
+    $('.search-to-year').datepicker({
+      format: "yyyy",
+      autoclose: true,
+      minViewMode: "years",
+      startDate: "-2y",
+      endDate: "+43y"
+    });
   }
 
   function addMap() {
@@ -66,19 +104,17 @@
         "esri/layers/FeatureLayer",
         "esri/tasks/query",
         "esri/tasks/QueryTask",
-        "esri/layers/LabelClass",
+        "esri/layers/LabelLayer",
+        "esri/symbols/Font",
         "esri/symbols/CartographicLineSymbol",
         "esri/renderers/SimpleRenderer",
         "esri/dijit/Search",
         "esri/tasks/StatisticDefinition",
         "dojo/_base/connect",
-        "esri/symbols/TextSymbol",
-        "esri/symbols/Font",
-        "esri/layers/VectorTileLayer",
         "dojo/domReady!"
         ],
 
-        function(Map,ArcGISTiledMapServiceLayer,FeatureLayer,Query,QueryTask,LabelClass,CartographicLineSymbol,SimpleRenderer,Search,StatisticDefinition,connect,TextSymbol,Font,VectorTileLayer) {
+        function(Map,ArcGISTiledMapServiceLayer,FeatureLayer,Query,QueryTask,LabelLayer,Font,CartographicLineSymbol,SimpleRenderer,Search,StatisticDefinition,connect) {
           map = new Map("viewDiv",{
             // center: [-99.5, 31.5],
             zoom: 6,
@@ -133,34 +169,33 @@
           map.addLayer(grayCanvas);
 
           tiled = new ArcGISTiledMapServiceLayer("http://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/SPM_Basemap_01302017/MapServer"); //new version
-          // tiled = new VectorTileLayer("http://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Vector_Tile_Test_04202017/VectorTileServer"); //TxDOT Vector Tile Basemap
           map.addLayer(tiled);
 
   	      var theOutFields = [
-        	'CONTROL_SECT_JOB',
-        	'DISTRICT_NAME',
-        	'COUNTY_NAME',
-        	'HIGHWAY_NUMBER',
-        	'PROJ_LENGTH',
-        	'PROJ_CLASS',
-        	'EST_CONST_COST',
-        	'TYPE_OF_WORK',
-        	'LIMITS_FROM',
-        	'LIMITS_TO',
-        	'LAYMAN_DESCRIPTION1',
-        	'PRJ_STATUS',
-        	'PRJ_TIER',
-        	'UTP_TOTAL_SCORE',
-        	'UTP_STRATEGIC_SCORE',
-        	'NBR_LET_YEAR',
-        	'CONTROL_SECTION',
-        	'UTP_STR_GOAL_TOP100',
-        	'UTP_STR_GOAL_ENERGY_SECTOR',
-        	'UTP_STR_GOAL_TRUNK_FREIGHT',
-        	'TPP_CATEGORY_P2'
+          	'CONTROL_SECT_JOB',
+          	'DISTRICT_NAME',
+          	'COUNTY_NAME',
+          	'HIGHWAY_NUMBER',
+          	'PROJ_LENGTH',
+          	'PROJ_CLASS',
+          	'EST_CONST_COST',
+          	'TYPE_OF_WORK',
+          	'LIMITS_FROM',
+          	'LIMITS_TO',
+          	'LAYMAN_DESCRIPTION1',
+          	'PRJ_STATUS',
+          	'PRJ_TIER',
+          	'UTP_TOTAL_SCORE',
+          	'UTP_STRATEGIC_SCORE',
+          	'NBR_LET_YEAR',
+          	'CONTROL_SECTION',
+          	'UTP_STR_GOAL_TOP100',
+          	'UTP_STR_GOAL_ENERGY_SECTOR',
+          	'UTP_STR_GOAL_TRUNK_FREIGHT',
+          	'TPP_CATEGORY_P2'
         	];
 
-          infoTemplate = new esri.InfoTemplate("Project:","");
+          var infoTemplate = new esri.InfoTemplate("Project:","");
           // map.infoWindow.resize(400, 400);
           map.infoWindow.set("popupWindow", false);
           popup = map.infoWindow;
@@ -172,8 +207,6 @@
           {id:"Projects",visible: true, outFields: theOutFields, infoTemplate: infoTemplate});
           map.addLayer(featureLayer);
 
-          addTrafficLayer();
-
           //Project Tracker Service
           queryTask = new QueryTask("http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0");
           query = new Query();
@@ -182,11 +215,6 @@
 
     		  map.on("load", function() {
       			findProjects();
-      			scaleDependentQueries();
-    		  });
-
-    		  map.on("zoom-end", function() {
-    		    scaleDependentQueries();
     		  });
 
     		  connect.connect(popup, "onSelectionChange", function() {
@@ -199,10 +227,6 @@
         }
       );
     }
-
-		function scaleDependentQueries() {
-		  aadtDisplayLyr.setDefinitionExpression("zLevel<" + (map.getZoom() + 1));
-		}
 
   function updateNav() {
     if (popup.features) {
@@ -227,48 +251,34 @@
 
     var featureAttributes = popup.features[selectIndex].attributes;
     var resultText = "";
+    //resultText +="<hr />"
+    //resultText += "<br><b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)<br>";
+    resultText += "<table class='resultsTable table'>";
+      resultText += "<tr><th>Project Name</th><td>" + featureAttributes.HIGHWAY_NUMBER + "</td></tr>";
+      resultText += "<tr><th>County Name</th><td>" + featureAttributes.COUNTY_NAME + "</td></tr>";
+      resultText += "<tr><th>Description</th><td>" + featureAttributes.LAYMAN_DESCRIPTION1 + "</td></tr>";
+      resultText += "<tr><th>From Limit</th><td>" + featureAttributes.LIMITS_FROM + "</td></tr>";
+      resultText += "<tr><th>To Limit</th><td>" + featureAttributes.LIMITS_TO + "</td></tr>";
+      resultText += "<tr><th>Est. Construction Cost</th><td>$" + addCommas(Math.round(featureAttributes.EST_CONST_COST)) + "</td></tr>";
+      resultText += "<tr><th>Project Status</th><td>" + featureAttributes.PRJ_STATUS + "</td></tr>";
 
-    resultText += "<br><b>Project Summary</b> - Updated Jan. 1, 2017<br>Summary information is from the TxDOT Desgin and Construction Information System (DCIS)<br>";
-    resultText += "<table class='resultsTable'>";
-    resultText += "<tr><th>Project ID</th><td>" + featureAttributes.CONTROL_SECT_JOB + "</td></tr>";
-    resultText += "<tr><th>Highway Number</th><td>" + featureAttributes.HIGHWAY_NUMBER + "</td></tr>";
-    resultText += "<tr><th>District Name</th><td>" + featureAttributes.DISTRICT_NAME + "</td></tr>";
-    resultText += "<tr><th>County Name</th><td>" + featureAttributes.COUNTY_NAME + "</td></tr>";
-    resultText += "<tr><th>Classification</th><td>" + featureAttributes.PROJ_CLASS + "</td></tr>";
-    resultText += "<tr><th>Description</th><td>" + featureAttributes.LAYMAN_DESCRIPTION1 + "</td></tr>";
-    resultText += "<tr><th>From Limit</th><td>" + featureAttributes.LIMITS_FROM + "</td></tr>";
-    resultText += "<tr><th>To Limit</th><td>" + featureAttributes.LIMITS_TO + "</td></tr>";
-    resultText += "<tr><th>Length</th><td>" + addCommas(Math.round(featureAttributes.PROJ_LENGTH*100)/100) + " miles</td></tr>";
-    resultText += "<tr><th>Est. Construction Cost</th><td>$" + addCommas(Math.round(featureAttributes.EST_CONST_COST)) + "</td></tr>";
-    resultText += "<tr><th>Project Status</th><td>" + featureAttributes.PRJ_STATUS + "</td></tr>";
+      resultText += "<tr><th>Length</th><td>" + addCommas(Math.round(featureAttributes.PROJ_LENGTH*100)/100) + " miles</td></tr>";
     resultText += "</table>";
 
     resultText += "<br>"
+    resultText +="<hr />"
 
     resultText += "<b>Contact Information</b> - Updated Jan. 1, 2017<br>Contact information is from the TxDOT SiteManager System<br>";
-    resultText += "<table class='resultsTable'>";
-    resultText += "<tr><th>TxDOT Contact</th><td>Joe Smith</td></tr>";
-    resultText += "<tr><th>TxDOT Phone</th><td>512-867-5309</td></tr>";
-    resultText += "<tr><th>Vendor Contact</th><td>Company X</td></tr>";
-    resultText += "<tr><th>Vendor Phone</th><td>512-867-5309</td></tr>";
+    resultText += "<table class='resultsTable table'>";
+      resultText += "<tr><th>TxDOT Contact</th><td>Joe Smith</td></tr>";
+      resultText += "<tr><th>TxDOT Phone</th><td>512-867-5309</td></tr>";
+      resultText += "<tr><th>Vendor Contact</th><td>Company X</td></tr>";
+      resultText += "<tr><th>Vendor Phone</th><td>512-867-5309</td></tr>";
     resultText += "</table>";
 
-    resultText += "<br>";
-
-    resultText += "<b>Project Milestones</b> - Updated Jan. 1, 2017<br>Project Milestones are from the TxDOT P6 System<br>";
-    resultText += "<table class='resultsTable'>";
-    resultText += "<tr><td></td><td>Target Date</td><td>Actual Date</td></tr>";
-    resultText += "<tr><th>Start Design</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Design 30% Complete</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Design 60% Complete</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Design 100% Complete</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Receive Environmental Clearance</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Utility Coordination</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Right of Way Coordination</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "<tr><th>Project Ready to Bid</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
-    resultText += "</table>";
 
     document.getElementById("selectionResults").innerHTML = resultText;
+    document.getElementById("selectionResultsContainer").style.display = "block";
   }
 
   function nextSelected() {
@@ -294,7 +304,7 @@
   }
 
   function closeInfo() {
-	  document.getElementById("selectionResults").innerHTML = "<br>Click a project on the map for more information.<br>";
+	  document.getElementById("selectionResults").innerHTML = "<button type='button' class='close close-info' aria-label='Close'><span aria-hidden='true'>&times;</span></button><br>Click a project on the map for more information.<br>";
 	  selectIndex = 0;
 	  popup.clearFeatures();
     updateNav();
@@ -305,9 +315,9 @@
       streets.hide();
       grayCanvas.hide();
       imagery.show();
-      document.getElementById("txdotMap").style.backgroundColor="white";
-      document.getElementById("streets").style.backgroundColor="white";
-      document.getElementById("imagery").style.backgroundColor="#DCDCDC";
+      document.getElementById("txdotMap").style.backgroundColor="#CA7C29";
+      document.getElementById("streets").style.backgroundColor="#CA7C29";
+      document.getElementById("imagery").style.backgroundColor="#915A24";
   }
 
   function addTxDOT() {
@@ -315,9 +325,9 @@
       streets.hide();
       grayCanvas.show();
       tiled.show();
-      document.getElementById("txdotMap").style.backgroundColor="#DCDCDC";
-      document.getElementById("streets").style.backgroundColor="white";
-      document.getElementById("imagery").style.backgroundColor="white";
+      document.getElementById("txdotMap").style.backgroundColor="#915A24";
+      document.getElementById("streets").style.backgroundColor="#CA7C29";
+      document.getElementById("imagery").style.backgroundColor="#CA7C29";
   }
 
   function addStreets() {
@@ -325,9 +335,9 @@
     tiled.hide();
     grayCanvas.hide();
     streets.show();
-    document.getElementById("txdotMap").style.backgroundColor="white";
-    document.getElementById("streets").style.backgroundColor="#DCDCDC";
-    document.getElementById("imagery").style.backgroundColor="white";
+    document.getElementById("txdotMap").style.backgroundColor="#CA7C29";
+    document.getElementById("streets").style.backgroundColor="#915A24";
+    document.getElementById("imagery").style.backgroundColor="#CA7C29";
   }
 
   function openGoogleMaps() {
@@ -336,50 +346,6 @@
     var lon = ctr.getLongitude();
     var level = map.getLevel();
     window.open("https://www.google.com/maps/@"+lat+","+lon+","+level+"z");
-  }
-
-  function addAADT() {
-    scaleDependentQueries();
-    hideDisplayLayers();
-    aadtDisplayLyr.show();
-    document.getElementById("aadtLayer").style.backgroundColor = "#DCDCDC";
-  }
-
-  function addStateSenate() {
-    hideDisplayLayers();
-    senateDisplayLyr.show();
-    document.getElementById("stateSenateLayer").style.backgroundColor = "#DCDCDC";
-  }
-
-  function addStateHouse() {
-    hideDisplayLayers();
-    houseDisplayLyr.show();
-    document.getElementById("stateHouseLayer").style.backgroundColor = "#DCDCDC";
-  }
-
-  function addMPO() {
-    hideDisplayLayers();
-    mpoDisplayLyr.show();
-    document.getElementById("mpoLayer").style.backgroundColor = "#DCDCDC";
-  }
-
-  function addCOG() {
-    hideDisplayLayers();
-    cogDisplayLyr.show();
-   document.getElementById("cogLayer").style.backgroundColor = "#DCDCDC";
-  }
-
-  function hideDisplayLayers() {
-    aadtDisplayLyr.hide();
-    mpoDisplayLyr.hide();
-    houseDisplayLyr.hide();
-    senateDisplayLyr.hide();
-    cogDisplayLyr.hide();
-    document.getElementById("aadtLayer").style.backgroundColor = "white";
-    document.getElementById("cogLayer").style.backgroundColor = "white";
-    document.getElementById("mpoLayer").style.backgroundColor = "white";
-    document.getElementById("stateHouseLayer").style.backgroundColor = "white";
-    document.getElementById("stateSenateLayer").style.backgroundColor = "white";
   }
 
   function resolveURL() {
@@ -439,31 +405,10 @@
   	  }
 
   	  var statusArray = [];
-  	  var statusText = "";
+  	  var statusText = "'Construction Scheduled','Finalizing for Construction','Under Development','Long Term Planning'";
   	  var groupingType = "";
   	  var projectGrouping = [];
   	  definitionExpression = "";
-
-  	  if (document.getElementById("chkCS").checked) {
-  	    statusArray.push("'Construction Scheduled'");
-  	  }
-  	  if (document.getElementById("chkFC").checked) {
-  	    statusArray.push("'Finalizing for Construction'");
-  	  }
-  	  if (document.getElementById("chkUD").checked) {
-  	    statusArray.push("'Under Development'");
-  	  }
-  	  if (document.getElementById("chkLTP").checked) {
-  	    statusArray.push("'Long Term Planning'");
-  	  }
-
-  	  if (statusArray.length > 0) {
-  	    statusText =  statusArray.toString();
-  	  }
-  	  else {
-  	    alert("Please select at least 1 Project Phase to continue.");
-  	    return;
-  	  }
 
   	  if (theSearchArea=="Select_Area"||theSearchArea=="City"||theSearchArea=="MPO"||theSearchArea=="State Senate District"||theSearchArea=="State House District") {
   	    definitionExpression = "PRJ_STATUS IN (" + statusText + ")";
@@ -482,54 +427,6 @@
   	  }
   	  if (theSearchArea=="Control Section") {
   	    definitionExpression = "CONTROL_SECTION = '" + theSearchValue + "' AND PRJ_STATUS IN (" + statusText + ")";
-  	  }
-
-  	  if (document.getElementById("chkBridge").checked) {
-  	    projectGrouping.push("'BR'");
-  	    projectGrouping.push("'BWN'");
-  	  }
-  	  if (document.getElementById("chkCapacity").checked) {
-	      projectGrouping.push("'WF'");
-	      projectGrouping.push("'WNF'");
-	      projectGrouping.push("'NLF'");
-	      projectGrouping.push("'NNF'");
-	      projectGrouping.push("'UPG'");
-	      projectGrouping.push("'SP2'");
-  	  }
-  	  if (document.getElementById("chkMaintenance").checked) {
-	      projectGrouping.push("'OV'");
-	      projectGrouping.push("'RER'");
-	      projectGrouping.push("'RES'");
-	      projectGrouping.push("'SC'");
-	      projectGrouping.push("'SFT'");
-  	  }
-  	  if (document.getElementById("chkSafety").checked) {
-	      projectGrouping.push("'HES'");
-	      projectGrouping.push("'TS'");
-	      projectGrouping.push("'INC'");
-  	  }
-  	  if (document.getElementById("chkMiscellaneous").checked) {
-	      projectGrouping.push("'MSC'");
-	      projectGrouping.push("'PE'");
-  	  }
-
-  	  //Adding project groupings to definition query
-  	  if (projectGrouping.length>0) {
-        definitionExpression += " AND PROJ_CLASS IN (" + projectGrouping.toString() + ")";
-  	  }
-
-  	  //Adding Systems to definition query
-  	  if (document.getElementById("chkTop100").checked) {
-        definitionExpression += " AND UTP_STR_GOAL_TOP100 > 0";
-  	  }
-  	  if (document.getElementById("chkEnergySector").checked) {
-        definitionExpression += " AND UTP_STR_GOAL_ENERGY_SECTOR > 0";
-  	  }
-  	  if (document.getElementById("chkFreight").checked) {
-        definitionExpression += " AND UTP_STR_GOAL_TRUNK_FREIGHT > 0";
-  	  }
-  	  if (document.getElementById("chkUTP").checked) {
-        definitionExpression += " AND PRJ_TIER IN ('1','2','3')";
   	  }
 
   	  if (document.getElementById("inputYearToValue").value < document.getElementById("inputYearFromValue").value) {
@@ -783,122 +680,41 @@
 	    var prjLength = 0;
 	    var prjCost = 0;
   	  var statusTable;
-  	  var summaryByType = document.getElementById("selSummarizeBy").value;
-
-  	  //District -----
-  	  if (summaryByType=="district") {
-        statusTable = "<table class='summaryTable'> \
-    	  <tr> \
-      	  <th>District</th> \
-      	  <th>Projects</th> \
-      	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
-    	  </tr>";
-
-    	  for (var i=0;i<summaryTableArray.length;i++) {
-    	    if (i>3&&i<29) {
-    	      statusTable += "<tr> \
-         	  <td class='summaryTableLeft'>" + summaryTableArray[i][0] + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(summaryTableArray[i][1]) + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(Math.round(summaryTableArray[i][3])) + "</td> \
-         	  <td class='summaryTableRight'>$" + addCommas(Math.round(summaryTableArray[i][2])) + "</td> \
-      	    </tr>";
-
-      	    prjCount += summaryTableArray[i][1];
-      	    prjLength += summaryTableArray[i][3];
-      	    prjCost += summaryTableArray[i][2];
-    	    }
-    	  }
-	    }
+  	 var summaryByType = "status";
 
 	    //Status -----
 	    if (summaryByType=="status") {
 	      var statusLabel="";
 
-        statusTable = "<table class='summaryTable'> \
+        statusTable = "<div class='summaryTableWrapper'><h3>SUMMARY BY PHASE:</h3><table class='summaryTable table'> \
     	  <tr> \
       	  <th>Phase</th> \
       	  <th>Projects</th> \
-      	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
+      	  <th>Est. Cost</th> \
     	  </tr>";
 
     	  for (var i=0;i<summaryTableArray.length;i++) {
     	    if (i<4) {
     	      if (i==0) {
-    	        statusLabel="Under construction or begins soon";
+    	        statusLabel="Construction underway or begins soon";
     	      }
     	      if (i==1) {
-    	        statusLabel="Construction within 4 years";
+    	        statusLabel="Construction begins within 4 years";
     	      }
     	      if (i==2) {
-    	        statusLabel="Construction in 4 to 10 years";
+    	        statusLabel="Construction begins in 4 to 10 years";
     	      }
     	      if (i==3) {
-    	        statusLabel="Corridor Studies, 10+ years out";
+    	        statusLabel="Corridor Studies, construction in 10+ years";
     	      }
 
     	      statusTable += "<tr> \
          	  <td class='summaryTableLeft'>" + statusLabel + "</td> \
          	  <td class='summaryTableRight'>" + addCommas(summaryTableArray[i][1]) + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(Math.round(summaryTableArray[i][3])) + "</td> \
          	  <td class='summaryTableRight'>$" + addCommas(Math.round(summaryTableArray[i][2])) + "</td> \
       	    </tr>";
 
       	    prjCount += summaryTableArray[i][1];
-      	    prjLength += summaryTableArray[i][3];
-      	    prjCost += summaryTableArray[i][2];
-    	    }
-    	  }
-	    }
-
-	    //Year -----
-	    if (summaryByType=="year") {
-        statusTable = "<table class='summaryTable'> \
-    	  <tr> \
-      	  <th>Year</th> \
-      	  <th>Projects</th> \
-      	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
-    	  </tr>";
-
-    	  for (var i=0;i<summaryTableArray.length;i++) {
-    	    if (i>28&&i<44) {
-    	      statusTable += "<tr> \
-         	  <td class='summaryTableLeft'>" + summaryTableArray[i][0] + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(summaryTableArray[i][1]) + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(Math.round(summaryTableArray[i][3])) + "</td> \
-         	  <td class='summaryTableRight'>$" + addCommas(Math.round(summaryTableArray[i][2])) + "</td> \
-      	    </tr>";
-
-      	    prjCount += summaryTableArray[i][1];
-      	    prjLength += summaryTableArray[i][3];
-      	    prjCost += summaryTableArray[i][2];
-    	    }
-    	  }
-	    }
-
-	    //Category -----
-	    if (summaryByType=="category") {
-        statusTable = "<table class='summaryTable'> \
-    	  <tr> \
-      	  <th>Category</th> \
-      	  <th>Projects</th> \
-      	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
-    	  </tr>";
-
-    	  for (var i=0;i<summaryTableArray.length;i++) {
-    	    if (i>43) {
-    	      statusTable += "<tr> \
-         	  <td class='summaryTableLeft'>" + summaryTableArray[i][0] + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(summaryTableArray[i][1]) + "</td> \
-         	  <td class='summaryTableRight'>" + addCommas(Math.round(summaryTableArray[i][3])) + "</td> \
-         	  <td class='summaryTableRight'>$" + addCommas(Math.round(summaryTableArray[i][2])) + "</td> \
-      	    </tr>";
-
-      	    prjCount += summaryTableArray[i][1];
-      	    prjLength += summaryTableArray[i][3];
       	    prjCost += summaryTableArray[i][2];
     	    }
     	  }
@@ -908,10 +724,9 @@
 	  statusTable += "<tr> \
       <td class='summaryTableLeft'>Totals</td> \
       <td class='summaryTableRight'>" + addCommas(prjCount) + "</td> \
-    	<td class='summaryTableRight'>" + addCommas(Math.round(prjLength)) + "</td> \
     	<td class='summaryTableRight'>$" + addCommas(Math.round(prjCost)) + "</td> \
     	</tr> \
-    </table>";
+    </table></div>";
 
 	  document.getElementById("projectStatusNotice").innerHTML = statusTable;
 	}
@@ -924,54 +739,10 @@
 	  search.value = "All Projects";
 	  document.getElementById("inputYearFromValue").value = 2015;
 	  document.getElementById("inputYearToValue").value = 2040;
-	  document.getElementById("chkBridge").checked = false;
-	  document.getElementById("chkCapacity").checked = false;
-	  document.getElementById("chkEnergySector").checked = false;
-	  document.getElementById("chkFreight").checked = false;
-	  document.getElementById("chkMaintenance").checked = false;
-	  document.getElementById("chkMiscellaneous").checked = false;
-	  document.getElementById("chkSafety").checked = false;
-	  document.getElementById("chkTop100").checked = false;
-	  document.getElementById("chkUTP").checked = false;
-	  document.getElementById("chkCS").checked = true;
-	  document.getElementById("chkFC").checked = true;
-	  document.getElementById("chkUD").checked = true;
-	  document.getElementById("chkLTP").checked = true;
-    // aadtDisplayLyr.hide();
-    // mpoDisplayLyr.hide();
-    // houseDisplayLyr.hide();
-    // senateDisplayLyr.hide();
-    // cogDisplayLyr.hide();
 	  document.getElementById("selectionCount").innerHTML = "";
 	 // map.centerAndZoom([-99.5, 31.5],6);
 	  hideFeatureLayers();
-	  hideDisplayLayers();
 	  findProjects();
-	}
-
-	function addTrafficLayer() {
-		projectsUrl = "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0";
-		aadtDisplayLyr = new esri.layers.FeatureLayer(projectsUrl, {id:"AADT",visible: false,outFields:["F2015_TRAF"]});
-
-    //Labeling for AADT
-    var labelSymbolAADT = new esri.symbol.TextSymbol();
-    labelSymbolAADT.font.setSize("8pt");
-    labelSymbolAADT.font.setWeight(esri.symbol.Font.WEIGHT_BOLD);
-    labelSymbolAADT.font.setFamily("arial");
-    labelSymbolAADT.setHaloSize(2);
-    labelSymbolAADT.setColor(new esri.Color([255, 0, 0]));
-    labelSymbolAADT.setHaloColor(new esri.Color([255, 255, 255]));
-
-    var jsonTraffic = {
-      "labelExpressionInfo": {"value": "{F2015_TRAF}"},
-      "labelPlacement":"always-horizontal"
-    };
-
-    var labelClass = new esri.layers.LabelClass(jsonTraffic);
-    labelClass.symbol = labelSymbolAADT;
-    aadtDisplayLyr.setLabelingInfo([ labelClass ]);
-
-    map.addLayer(aadtDisplayLyr);
 	}
 
 	function addSearchLayers() {
@@ -1009,71 +780,6 @@
 		map.addLayer(districtSearchLyr);
 		map.addLayer(senateSearchLyr);
 		map.addLayer(houseSearchLyr);
-
-		projectsUrl = "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_State_Senate_Districts/FeatureServer/0";
-		senateDisplayLyr = new esri.layers.FeatureLayer(projectsUrl, {id:"Senate",visible: false,outFields:["DIST_NBR"]});
-
-		projectsUrl = "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_State_House_Districts/FeatureServer/0";
-		houseDisplayLyr = new esri.layers.FeatureLayer(projectsUrl, {id:"House",visible: false,outFields:["DIST_NBR"]});
-
-		projectsUrl = "http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Metropolitan_Planning_Organizations/FeatureServer/0";
-		mpoDisplayLyr = new esri.layers.FeatureLayer(projectsUrl, {id:"MPO",visible: false,outFields:["MPO_NM"]});
-
-		projectsUrl = "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_Councils_of_Governments/FeatureServer/0";
-		cogDisplayLyr = new esri.layers.FeatureLayer(projectsUrl, {id:"COG",visible: false,outFields:["COG_NM"]});
-
-    //Generic labeling for all layers
-    var labelSymbol = new esri.symbol.TextSymbol();
-    labelSymbol.font.setSize("12pt");
-    labelSymbol.font.setFamily("arial");
-    labelSymbol.setHaloSize(2);
-    labelSymbol.setColor(new esri.Color([0, 0, 0]));
-    labelSymbol.setHaloColor(new esri.Color([255, 255, 255]));
-
-    //JSON Options by Layer
-    var jsonMPO = {
-      "labelExpressionInfo": {"value": "{MPO_NM}"},
-      "labelPlacement":"always-horizontal"
-    };
-
-    var jsonCOG = {
-      "labelExpressionInfo": {"value": "{COG_NM}"},
-      "labelPlacement":"always-horizontal"
-    };
-
-    var jsonSenate = {
-      "labelExpressionInfo": {"value": "{DIST_NBR}"},
-      "labelPlacement":"always-horizontal"
-    };
-
-    var jsonHouse = {
-      "labelExpressionInfo": {"value": "{DIST_NBR}"},
-      "labelPlacement":"always-horizontal"
-    };
-
-    //LabelClasses for polygons
-    var labelClass = new esri.layers.LabelClass(jsonMPO);
-    labelClass.symbol = labelSymbol;
-    mpoDisplayLyr.setLabelingInfo([ labelClass ]);
-
-    var labelClass = new esri.layers.LabelClass(jsonCOG);
-    labelClass.symbol = labelSymbol;
-    cogDisplayLyr.setLabelingInfo([ labelClass ]);
-
-    var labelClass = new esri.layers.LabelClass(jsonSenate);
-    labelClass.symbol = labelSymbol;
-    senateDisplayLyr.setLabelingInfo([ labelClass ]);
-
-    var labelClass = new esri.layers.LabelClass(jsonHouse);
-    labelClass.symbol = labelSymbol;
-    houseDisplayLyr.setLabelingInfo([ labelClass ]);
-
-		map.addLayer(senateDisplayLyr);
-		map.addLayer(houseDisplayLyr);
-		map.addLayer(mpoDisplayLyr);
-		map.addLayer(cogDisplayLyr);
-
-	 // map.reorderLayer(aadtDisplayLyr,10);
 	}
 
 	function hideFeatureLayers() {
@@ -1096,3 +802,12 @@
 	  }
 	  return x1 + x2;
 	}
+
+  function toggleDIV(theDIV) {
+    var x = document.getElementById(theDIV);
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+  }

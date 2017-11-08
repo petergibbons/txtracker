@@ -270,7 +270,13 @@ body, html, .row-offcanvas {
   overflow: auto;
 }
 
+.DB6AIconTD font { font-size: 29px !important;padding: 0 17px !important; }
 
+ .DB6AMainMenuItemTD {
+    padding: 12px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
 
 /*
  * Queries
@@ -308,6 +314,7 @@ body, html, .row-offcanvas {
     -webkit-border-bottom-right-radius: 5px !important;
    }
   .button, .search-from-year { margin-bottom: 10px !important; }
+.DB6AIconTD font { font-size: 23px !important;padding: 0 10px !important; }
 
 
 
