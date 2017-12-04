@@ -117,6 +117,15 @@ button { white-space: normal; }
   color: #fff;
 }
 
+#mapOptions-advanced .dropdown-menu {
+  background: none;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+  #mapOptions-advanced .dropdown-menu .btn, #clearLayers { width: 100px; }
+
 #header {
   position: absolute;
   bottom: 40px;

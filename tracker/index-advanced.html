@@ -108,7 +108,7 @@
                   </div>
                   
                   <div class="center advancedSearch">
-                    <i class="glyphicon glyphicon-menu-hamburger"></i> <a href="index-lite.html">Switch to lite search</a>
+                    <i class="glyphicon glyphicon-transfer"></i> <a href="index-lite.html">Switch to lite search</a>
                   </div>
                 </div><!-- .searchOptions -->
 
@@ -136,32 +136,35 @@
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
           </p>
           
-                      <div id="viewDiv"></div>
-                      <div id="mapOptions-advanced">
-                        <div class="legend">
-                          <img src="images/key.png" alt="Map Legend">
-                        </div><!-- legend -->
-                        <div id="header2" class="btn-group btn-group-responsive">
-                          <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
-                          <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
-                          <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
-                          <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
+          <div id="viewDiv"></div>
+          <div id="mapOptions-advanced">
+            <div class="legend">
+              <img src="images/key.png" alt="Map Legend">
+            </div><!-- legend -->
+            <div id="header2" class="btn-group btn-group-responsive dropup">
+              <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
+              <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
+              <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
+              <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
 
-                          <h3>layers</h3>
-                          <button type="button" class="btn btn-default" onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</button>
-                          <button type="button" class="btn btn-default" onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">AADT</button>
-                          <button type="button" class="btn btn-default" onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</button>
-                          <button type="button" class="btn btn-default" onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</button>
-                        
-                          <button type="button" class="btn btn-default" onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</button>
-                        </div><!-- header2-->
+                <div class="btn-group" role="group">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-modal-window"></i> Layers <span class="caret"></span>
+                    <span class="sr-only">Toggle Layers</span>
+                  </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <button type="button" class="btn btn-default" onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</button><br>
+                      <button type="button" class="btn btn-default" onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">AADT</button><br>
+                      <button type="button" class="btn btn-default" onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</button><br>
+                      <button type="button" class="btn btn-default" onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</button><br>
+                      <button type="button" class="btn btn-default" onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</button>
+                      <button type="button" class="btn btn-default" onclick="hideDisplayLayers()" id="clearLayers" title="Click to turn off layers">Clear Layers</button>
 
-
-                          
-
-                      </div><!-- mapOptions -->                        
-
-
+                    </div>
+                </div>
+              
+            </div><!-- header2-->
+          </div><!-- mapOptions-advanced -->                        
       </div>
   </div><!-- /main -->
   <div id="selectionResultsContainer">
