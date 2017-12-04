@@ -1,3 +1,6 @@
+ // overrides for advanced version.
+ // common code utilized by lite and 
+ // advanced contained in singleWing.js
  
   var TxDOTVectorTileLayer;
   var senateDisplayLyr;
@@ -150,9 +153,9 @@
       );
     }
 
-		function scaleDependentQueries() {
-		  aadtDisplayLyr.setDefinitionExpression("zLevel<" + (map.getZoom() + 1));
-		}
+	function scaleDependentQueries() {
+	  aadtDisplayLyr.setDefinitionExpression("zLevel<" + (map.getZoom() + 1));
+	}
 
   function updateNav() {
     if (popup.features) {
@@ -222,52 +225,7 @@
     document.getElementById("selectionResultsContainer").style.display = "block";
 
   }
-
-  function closeInfo() {
-	  document.getElementById("selectionResults").innerHTML = "<br>Click a project on the map for more information.<br>";
-	  selectIndex = 0;
-	  popup.clearFeatures();
-    updateNav();
-  }
-
-  function addImagery() {
-      tiled.hide();
-      streets.hide();
-      grayCanvas.hide();
-      imagery.show();
-      document.getElementById("txdotMap").style.backgroundColor="white";
-      document.getElementById("streets").style.backgroundColor="white";
-      document.getElementById("imagery").style.backgroundColor="#DCDCDC";
-  }
-
-  function addTxDOT() {
-      imagery.hide();
-      streets.hide();
-      grayCanvas.show();
-      tiled.show();
-      document.getElementById("txdotMap").style.backgroundColor="#DCDCDC";
-      document.getElementById("streets").style.backgroundColor="white";
-      document.getElementById("imagery").style.backgroundColor="white";
-  }
-
-  function addStreets() {
-    imagery.hide();
-    tiled.hide();
-    grayCanvas.hide();
-    streets.show();
-    document.getElementById("txdotMap").style.backgroundColor="white";
-    document.getElementById("streets").style.backgroundColor="#DCDCDC";
-    document.getElementById("imagery").style.backgroundColor="white";
-  }
-
-  function openGoogleMaps() {
-    var ctr = map.extent.getCenter();
-    var lat = ctr.getLatitude();
-    var lon = ctr.getLongitude();
-    var level = map.getLevel();
-    window.open("https://www.google.com/maps/@"+lat+","+lon+","+level+"z");
-  }
-
+  
   function addAADT() {
     scaleDependentQueries();
     hideDisplayLayers();
@@ -310,36 +268,6 @@
     document.getElementById("mpoLayer").style.backgroundColor = "white";
     document.getElementById("stateHouseLayer").style.backgroundColor = "white";
     document.getElementById("stateSenateLayer").style.backgroundColor = "white";
-  }
-
-  function resolveURL() {
-    var docURL = document.URL;
-    var theURLlen = docURL.length;
-    var typeBegin = docURL.indexOf("?");
-    var typeEnd = docURL.indexOf("=");
-    if (typeBegin<1) {
-      urlQuery = "";
-      return;
-    }
-    else {
-      var queryArea = docURL.substring(typeBegin+1,typeEnd);
-      var areaName = docURL.substring(typeEnd+1,theURLlen).split(",");
-
-      for (var i = 0; i < areaName.length; i++) {
-        areaName[i] = areaName[i].replace("_", " ");
-      }
-
-      for (var i = 0; i < areaName.length; i++) {
-        areaName[i] = "'" + areaName[i] + "'";
-      }
-
-      if (queryArea=="DISTRICT_NAME"||queryArea=="COUNTY_NAME"||queryArea=="HIGHWAY_NUMBER"||queryArea=="CONTROL_SECT_JOB"||queryArea=="CONTROL_SECTION") {
-        urlQuery = queryArea + " IN (" + areaName.toString() + ")";
-      }
-      else {
-        urlQuery = "";
-      }
-    }
   }
 
 	function findProjects() {
@@ -519,194 +447,6 @@
       queryTask.execute(query, getProjects);
 	}
 
-	function executeDefinitionPolygon() {
-  	  featureLayer.setDefinitionExpression(definitionExpression);
-    	query.where = definitionExpression;
-    	featureLayer.show();
-      queryTask.execute(query, getProjects);
-	}
-
-	function zoomToSenateDistrict(distNBR) {
-	  senateSearchLyr.setAutoGeneralize(false);
-		senateSearchLyr.redraw();
-		var theSenateQuery = new esri.tasks.Query();
-		theSenateQuery.where = "DIST_NBR=" + distNBR;
-		senateSearchLyr.selectFeatures(theSenateQuery,esri.layers.FeatureLayer.SELECTION_NEW,function(feature){
-			if (feature[0].geometry) {
-				var theExtent = feature[0].geometry.getExtent();
-				map.setExtent(theExtent);
-				spatialQueryAttributes(feature[0].geometry);
-			}
-		});
-
-		senateSearchLyr.redraw();
-		senateSearchLyr.setAutoGeneralize(true);
-	}
-
-	function zoomToHouseDistrict(distNBR) {
-	  houseSearchLyr.setAutoGeneralize(false);
-		houseSearchLyr.redraw();
-		var theHouseQuery = new esri.tasks.Query();
-		theHouseQuery.where = "DIST_NBR=" + distNBR;
-		houseSearchLyr.selectFeatures(theHouseQuery,esri.layers.FeatureLayer.SELECTION_NEW,function(feature){
-			if (feature[0].geometry) {
-				var theExtent = feature[0].geometry.getExtent();
-				map.setExtent(theExtent);
-				spatialQueryAttributes(feature[0].geometry);
-			}
-		});
-
-		houseSearchLyr.redraw();
-		houseSearchLyr.setAutoGeneralize(true);
-	}
-
-	function zoomToMPO(mpoNM) {
-	  mpoSearchLyr.setAutoGeneralize(false);
-		mpoSearchLyr.redraw();
-		var theMPOQuery = new esri.tasks.Query();
-		theMPOQuery.where = "MPO_NM='" + mpoNM + "'";
-		mpoSearchLyr.selectFeatures(theMPOQuery,esri.layers.FeatureLayer.SELECTION_NEW,function(feature){
-			if (feature[0].geometry) {
-				var theExtent = feature[0].geometry.getExtent();
-				map.setExtent(theExtent);
-				spatialQueryAttributes(feature[0].geometry);
-			}
-		});
-
-		mpoSearchLyr.redraw();
-		mpoSearchLyr.setAutoGeneralize(true);
-	}
-
-	function zoomToCity(cityNM) {
-	  citySearchLyr.setAutoGeneralize(false);
-		citySearchLyr.redraw();
-		var theCityQuery = new esri.tasks.Query();
-		theCityQuery.where = "CITY_NM='" + cityNM + "'";
-		citySearchLyr.selectFeatures(theCityQuery,esri.layers.FeatureLayer.SELECTION_NEW,function(feature){
-			if (feature[0].geometry) {
-				var theExtent = feature[0].geometry.getExtent();
-				map.setExtent(theExtent);
-				spatialQueryAttributes(feature[0].geometry);
-			}
-		});
-
-		citySearchLyr.redraw();
-		citySearchLyr.setAutoGeneralize(true);
-	}
-
-	function spatialQueryAttributes(theGeom) {
-  	featureLayer.setDefinitionExpression("OBJECTID>0");
-  	featureLayer.hide();
-
-
-		var query2 = new esri.tasks.Query();
-		query2.geometry = theGeom;
-		query2.returnGeometry = false;
-		query2.outFields = ["*"];
-		featureLayer.queryIds(query2, function (objectIds) {
-			if (objectIds.length>0) {
-			  spatialQueryIDs = objectIds.toString();
-        definitionExpression += " AND OBJECTID IN (" + spatialQueryIDs + ")";
-        executeDefinitionPolygon();
-			}
-		});
-	}
-
-	function getProjects(results) {
-	    summaryTableArray = [
-	      ["Construction Scheduled",0,0,0],
-	      ["Finalizing for Construction",0,0,0],
-	      ["Under Development",0,0,0],
-	      ["Long Term Planning",0,0,0],
-	      ["Abilene",0,0,0],
-        ["Amarillo",0,0,0],
-        ["Atlanta",0,0,0],
-        ["Austin",0,0,0],
-        ["Beaumont",0,0,0],
-        ["Brownwood",0,0,0],
-        ["Bryan",0,0,0],
-        ["Childress",0,0,0],
-        ["Corpus Christi",0,0,0],
-        ["Dallas",0,0,0],
-        ["El Paso",0,0,0],
-        ["Fort Worth",0,0,0],
-        ["Houston",0,0,0],
-        ["Laredo",0,0,0],
-        ["Lubbock",0,0,0],
-        ["Lufkin",0,0,0],
-        ["Odessa",0,0,0],
-        ["Paris",0,0,0],
-        ["Pharr",0,0,0],
-        ["San Angelo",0,0,0],
-        ["San Antonio",0,0,0],
-        ["Tyler",0,0,0],
-        ["Waco",0,0,0],
-        ["Wichita Falls",0,0,0],
-        ["Yoakum",0,0,0],
-        ["2014",0,0,0],
-        ["2015",0,0,0],
-        ["2016",0,0,0],
-        ["2017",0,0,0],
-        ["2018",0,0,0],
-        ["2019",0,0,0],
-        ["2020",0,0,0],
-        ["2021",0,0,0],
-        ["2022",0,0,0],
-        ["2023",0,0,0],
-        ["2024",0,0,0],
-        ["2025",0,0,0],
-        ["2026",0,0,0],
-        ["2027",0,0,0],
-        ["2028",0,0,0],
-        ["1",0,0,0],
-        ["2M",0,0,0],
-        ["2U",0,0,0],
-        ["3",0,0,0],
-        ["4",0,0,0],
-        ["5",0,0,0],
-        ["6",0,0,0],
-        ["7",0,0,0],
-        ["8",0,0,0],
-        ["9",0,0,0],
-        ["10",0,0,0],
-        ["11",0,0,0],
-        ["12",0,0,0],
-        ["DA",0,0,0],
-        ["PA",0,0,0]
-	    ];
-
-      var resultItems = [];
-      var resultCount = results.features.length;
-
-      for (var i = 0; i < resultCount; i++) {
-        var featureAttributes = results.features[i].attributes;
-
-        //Populating by Status, District, and Year
-        for (var y=0; y < summaryTableArray.length; y++) {
-          if (featureAttributes.PRJ_STATUS==summaryTableArray[y][0]) {
-            summaryTableArray[y][1] += 1;
-            summaryTableArray[y][2] += featureAttributes.EST_CONST_COST;
-            summaryTableArray[y][3] += featureAttributes.PROJ_LENGTH;
-          }
-          if (featureAttributes.DISTRICT_NAME==summaryTableArray[y][0]) {
-            summaryTableArray[y][1] += 1;
-            summaryTableArray[y][2] += featureAttributes.EST_CONST_COST;
-            summaryTableArray[y][3] += featureAttributes.PROJ_LENGTH;
-          }
-          if (featureAttributes.NBR_LET_YEAR==summaryTableArray[y][0]) {
-            summaryTableArray[y][1] += 1;
-            summaryTableArray[y][2] += featureAttributes.EST_CONST_COST;
-            summaryTableArray[y][3] += featureAttributes.PROJ_LENGTH;
-          }
-          if (featureAttributes.TPP_CATEGORY_P2==summaryTableArray[y][0]) {
-            summaryTableArray[y][1] += 1;
-            summaryTableArray[y][2] += featureAttributes.EST_CONST_COST;
-            summaryTableArray[y][3] += featureAttributes.PROJ_LENGTH;
-          }
-        }
-      }
-      getSystemStats();
-	}
 
   function getSystemStats() {
 	    var prjCount = 0;
@@ -1004,25 +744,4 @@
 		map.addLayer(cogDisplayLyr);
 
 	 // map.reorderLayer(aadtDisplayLyr,10);
-	}
-
-	function hideFeatureLayers() {
-	   districtSearchLyr.hide();
-	   countySearchLyr.hide();
-	   citySearchLyr.hide();
-	   mpoSearchLyr.hide();
-	   senateSearchLyr.hide();
-	   houseSearchLyr.hide();
-	}
-
-	function addCommas(nStr) {
-	  nStr += '';
-	  x = nStr.split('.');
-	  x1 = x[0];
-	  x2 = x.length > 1 ? '.' + x[1] : '';
-	  var rgx = /(\d+)(\d{3})/;
-	  while (rgx.test(x1)) {
-		x1 = x1.replace(rgx, '$1' + ',' + '$2');
-	  }
-	  return x1 + x2;
 	}

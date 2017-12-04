@@ -59,9 +59,6 @@
     document.getElementById("selectionResultsContainer").style.height = (h-0) + "px";
 
     var filterOptionsWidth = getComputedStyle(document.getElementById("filterOptions")).width;
-
-    //document.getElementById("mapOptions").style.width = (contentsWidth-10) + "px";
-    //document.getElementById("mapOptions").style.left = filterOptionsWidth;
     
     if( w <= 1000 ){
       document.getElementById("mapOptions").style.top = (h-240) + "px";
