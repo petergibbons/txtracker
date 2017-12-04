@@ -64,10 +64,10 @@
                     <h3 class="letter-spaced">PHASE</h3>
                     <div id="searchByPhase" class="row">
                       <div class="col-lg-12">
-                        <input id="chkCS" type="checkbox" checked=true name="phases" value="Construction Scheduled"> Under construction or begins soon<br>
-                        <input id="chkFC" type="checkbox" checked=true name="phases" value="Finalizing for Construction"> Construction within 4 years<br>
-                        <input id="chkUD" type="checkbox" checked=true name="phases" value="Under Development"> Construction in 4 to 10 years<br>
-                        <input id="chkLTP" type="checkbox" checked=true name="phases" value="Long Term Planning"> Corridor Studies, 10+ years out<br>   
+                        <input id="chkCS" type="checkbox" checked=true name="phases" value="Construction Scheduled"> <label for="chkCS">Under construction or begins soon</label></label><br>
+                        <input id="chkFC" type="checkbox" checked=true name="phases" value="Finalizing for Construction"> <label for="chkFC">Construction within 4 years</label><br>
+                        <input id="chkUD" type="checkbox" checked=true name="phases" value="Under Development"> <label for="chkUD">Construction in 4 to 10 years</label><br>
+                        <input id="chkLTP" type="checkbox" checked=true name="phases" value="Long Term Planning"> <label for="chkLTP">Corridor Studies, 10+ years out</label><br>   
                       </div>
 
                     </div>
@@ -77,11 +77,11 @@
                     <h3 class="letter-spaced">TYPE <small>(OPTIONAL)</small></h3>
                     <div id="searchByType" class="row">
                       <div class="col-lg-12">
-                        <input id="chkBridge" type="checkbox" name="phases" value="Bridge"> Bridge<br>
-                        <input id="chkCapacity" type="checkbox" name="phases" value="Increased_Roadway_Capacity"> Increased Roadway Capacity<br>           
-                        <input id="chkMaintenance" type="checkbox" name="phases" value="Roadway_Maintenance"> Maintenance<br>
-                        <input id="chkSafety" type="checkbox" name="phases" value="Safety"> Safety<br>  
-                        <input id="chkMiscellaneous" type="checkbox" name="phases" value="Miscellaneous"> Miscellaneous<br>
+                        <input id="chkBridge" type="checkbox" name="phases" value="Bridge"> <label for="chkBridge">Bridge</label><br>
+                        <input id="chkCapacity" type="checkbox" name="phases" value="Increased_Roadway_Capacity"> <label for="chkCapacity">Increased Roadway Capacity</label><br>           
+                        <input id="chkMaintenance" type="checkbox" name="phases" value="Roadway_Maintenance"> <label for="chkMaintenance">Maintenance</label><br>
+                        <input id="chkSafety" type="checkbox" name="phases" value="Safety"> <label for="chkSafety">Safety</label><br>  
+                        <input id="chkMiscellaneous" type="checkbox" name="phases" value="Miscellaneous"> <label for="chkMiscellaneous">Miscellaneous</label><br>
                       </div>
                     </div>
                   </div>
@@ -90,10 +90,10 @@
                     <h3 class="letter-spaced">PROGRAM <small>(OPTIONAL)</small></h3>
                     <div id="searchByProgram" class="row">
                       <div class="col-lg-12">
-                        <input id="chkTop100" type="checkbox" name="phases" value="Top 100"> Top 100<br>
-                        <input id="chkFreight" type="checkbox" name="phases" value="Freight"> Freight/Trunk<br>              
-                        <input id="chkEnergySector" type="checkbox" name="phases" value="Energy Sector"> Energy Sector<br>
-                        <input id="chkUTP" type="checkbox" name="phases" value="UTP"> UTP<br>
+                        <input id="chkTop100" type="checkbox" name="phases" value="Top 100"> <label for="chkTop100">Top 100</label><br>
+                        <input id="chkFreight" type="checkbox" name="phases" value="Freight"> <label for="chkFreight">Freight/Trunk</label><br>              
+                        <input id="chkEnergySector" type="checkbox" name="phases" value="Energy Sector"> <label for="chkEnergySector">Energy Sector</label><br>
+                        <input id="chkUTP" type="checkbox" name="phases" value="UTP"> <label for="chkUTP">UTP</label><br>
                       </div>
                     </div>
                   </div>
@@ -114,8 +114,8 @@
 
                 <hr />
                 <div id="projectStatusOptions">
-                  Summarize Results By:
-                    <select id="selSummarizeBy" onchange="getSystemStats()">
+                  <h3 class="letter-spaced">Summarize Results By:</h3>
+                    <select id="selSummarizeBy" onchange="getSystemStats()" class="form-control">
                       <option value="status">Project Phase</option>
                       <option value="district">District</option>
                       <option value="year">Year</option>            
@@ -137,7 +137,7 @@
           </p>
           
                       <div id="viewDiv"></div>
-                      <div id="mapOptions">
+                      <div id="mapOptions-advanced">
                         <div class="legend">
                           <img src="images/key.png" alt="Map Legend">
                         </div><!-- legend -->
@@ -146,21 +146,18 @@
                           <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
                           <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
                           <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
+
+                          <h3>layers</h3>
+                          <button type="button" class="btn btn-default" onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</button>
+                          <button type="button" class="btn btn-default" onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">AADT</button>
+                          <button type="button" class="btn btn-default" onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</button>
+                          <button type="button" class="btn btn-default" onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</button>
+                        
+                          <button type="button" class="btn btn-default" onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</button>
                         </div><!-- header2-->
 
-                        <div onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</div>
-                        <div onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</div>
-                        <div onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</div>
-                        <div onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</div>
-                        <div id="moreLayers">
-                          Layers
-                        </div>   
-                        <div onclick="hideDisplayLayers()" id="hideLayersDIV" title="Click to turn off layers">Clear Layers</div>      
-                        <div onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</div>
-                        <div onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">COG</div>      
-                        <div onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</div>
-                        <div onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</div>
-                        <div onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</div>
+
+                          
 
                       </div><!-- mapOptions -->                        
 

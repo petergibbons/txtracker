@@ -60,12 +60,26 @@
 
     var filterOptionsWidth = getComputedStyle(document.getElementById("filterOptions")).width;
     
-    if( w <= 1000 ){
-      document.getElementById("mapOptions").style.top = (h-240) + "px";
-    }else {
-      document.getElementById("mapOptions").style.top = (h-150) + "px";
+    if( $("#mapOptions-advanced").length ) {
+      var advanced = 'advanced';
+      // in advanced mode
+      if( w <= 1000 ){
+        document.getElementById("mapOptions-advanced").style.top = (h-240) + "px";
+      }else {
+        document.getElementById("mapOptions-advanced").style.top = (h-200) + "px";
+      }
+      //document.getElementById("mapOptions-advanced").style.width = "400px";
+
+    }else{
+      
+      if( w <= 1000 ){
+        document.getElementById("mapOptions").style.top = (h-240) + "px";
+      }else {
+        document.getElementById("mapOptions").style.top = (h-150) + "px";
+      }
+      //document.getElementById("mapOptions").style.width = "400px";
+
     }
-    document.getElementById("mapOptions").style.width = "400px";
 
   }
 

@@ -14,13 +14,15 @@ button { white-space: normal; }
 
 .search_options { 
   width: 80%; 
-  margin: 0 auto; 
+  margin: 0 auto;
+  font-size: 1.2em;
 }
-.search_options h3 { 
+.search_options h3, #projectStatusOptions h3 { 
   text-align: left; 
-  font-size: 13px; 
+  font-size: 14px; 
   font-weight: 800; 
-  letter-spacing: 2px 
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 .search_options button { width: 100%; }
 
@@ -40,6 +42,10 @@ button { white-space: normal; }
 
 #searchByYear input { color: #333; }
 
+#projectStatusOptions {
+  padding: 0 25px;
+}
+
 .button {
   font-size: 12px;
   color: #ffffff;
@@ -55,8 +61,7 @@ button { white-space: normal; }
  /* background-image: url(https://s26.postimg.org/mjuxkr9mx/Blue_BKG.png);*/
   display: none;
   position: absolute;
-  top: 20px;
-  
+  top: 20px;  
   max-height: 800px;
   background-size: 100% 100%;
   
@@ -100,10 +105,14 @@ button { white-space: normal; }
   position: absolute;
   margin-left: 10px !important;
   width: 400px;
-
+}
+#mapOptions-advanced {
+  position: absolute;
+  margin-left: 10px !important;
+  width: 94% !important;
 }
 
-#mapOptions button { 
+#mapOptions button, #mapOptions-advanced button { 
   background-color: #CA7C29;
   color: #fff;
 }
@@ -163,11 +172,15 @@ button { white-space: normal; }
   font-size: 14px;
 }
 .summaryTable th:first-child {
-  border-radius:5px 0 0 5px;
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
 }
 
 .summaryTable th:last-child{
-  border-radius:0 5px 5px 0;
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
 }
 .summaryTable tr:first-child { margin-top: 20px; }
 

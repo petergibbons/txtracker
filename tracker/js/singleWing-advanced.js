@@ -462,7 +462,7 @@
       	  <th>District</th> \
       	  <th>Projects</th> \
       	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
+      	  <th>Est. Cost</th> \
     	  </tr>";
 
     	  for (var i=0;i<summaryTableArray.length;i++) {
@@ -490,7 +490,7 @@
       	  <th>Phase</th> \
       	  <th>Projects</th> \
       	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
+      	  <th>Est. Cost</th> \
     	  </tr>";
 
     	  for (var i=0;i<summaryTableArray.length;i++) {
@@ -524,12 +524,12 @@
 
 	    //Year -----
 	    if (summaryByType=="year") {
-        statusTable = "<table class='summaryTable'> \
+        statusTable = "<table class='summaryTable table'> \
     	  <tr> \
       	  <th>Year</th> \
       	  <th>Projects</th> \
       	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
+      	  <th>Est. Cost</th> \
     	  </tr>";
 
     	  for (var i=0;i<summaryTableArray.length;i++) {
@@ -550,12 +550,12 @@
 
 	    //Category -----
 	    if (summaryByType=="category") {
-        statusTable = "<table class='summaryTable'> \
+        statusTable = "<table class='summaryTable table'> \
     	  <tr> \
       	  <th>Category</th> \
       	  <th>Projects</th> \
       	  <th>Miles</th> \
-      	  <th>Est. Construction Cost</th> \
+      	  <th>Est. Cost</th> \
     	  </tr>";
 
     	  for (var i=0;i<summaryTableArray.length;i++) {
