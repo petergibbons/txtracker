@@ -60,6 +60,8 @@ button { white-space: normal; }
   padding: 10px;
 }
 
+#btnGroupDrop1 { border: 1px solid #CCC; }
+
 .btn-group-vertical>.btn:first-child:not(:last-child) {
     
     border-top-right-radius: 4px !important;
