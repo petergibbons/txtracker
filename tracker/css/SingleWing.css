@@ -5,6 +5,7 @@ body {
   height:100%;
 }
 button { white-space: normal; }
+.btn-default { border: none; }
 .letter-spaced { letter-spacing: 2px; }
 .no-padding { padding-left:0px !important; padding-right: 0px !important; }
 
@@ -25,6 +26,8 @@ button { white-space: normal; }
   text-transform: uppercase;
 }
 .search_options button { width: 100%; }
+
+.search_options label { font-weight: 300; letter-spacing: 1px; }
 
 .search_actions { margin-top: 20px; }
 
@@ -55,6 +58,14 @@ button { white-space: normal; }
   font-weight: bold;
   letter-spacing: 2px;
   padding: 10px;
+}
+
+.btn-group-vertical>.btn:first-child:not(:last-child) {
+    
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    -moz-border-top-right-radius: 4px !important;
+    -webkit-border-top-right-radius: 4px !important;
 }
 
 #selectionResultsContainer { 

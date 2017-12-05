@@ -48,6 +48,7 @@
     var contentsWidth = Math.round(w*.25);
     var contentsHeight = Math.round(h*.35);
 
+    document.getElementById("mnFE0BBC45_-0p").style.minWwidth = "230px";
     document.getElementById("viewDiv").style.height = (h-0) + "px";
     document.getElementById("main").style.height = (h-0) + "px";
 
@@ -66,9 +67,8 @@
       if( w <= 1000 ){
         document.getElementById("mapOptions-advanced").style.top = (h-240) + "px";
       }else {
-        document.getElementById("mapOptions-advanced").style.top = (h-200) + "px";
+        document.getElementById("mapOptions-advanced").style.top = (h-150) + "px";
       }
-      //document.getElementById("mapOptions-advanced").style.width = "400px";
 
     }else{
       
@@ -77,7 +77,6 @@
       }else {
         document.getElementById("mapOptions").style.top = (h-150) + "px";
       }
-      //document.getElementById("mapOptions").style.width = "400px";
 
     }
 
