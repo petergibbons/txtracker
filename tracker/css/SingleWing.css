@@ -185,9 +185,9 @@ button { white-space: normal; }
   color: #0C1B2A;
   margin: auto;
   padding: 10px;
-  border-radius: 15px 15px 15px 15px;
-  -moz-border-radius: 15px 15px 15px 15px;
-  -webkit-border-radius: 15px 15px 15px 15px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   width: 100%;
 }
 

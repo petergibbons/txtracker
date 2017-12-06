@@ -210,6 +210,11 @@
 
     resultText += "<b>Project Milestones</b> - Updated Jan. 1, 2017<br>Project Milestones are from the TxDOT P6 System<br>";
     resultText += "<table class='resultsTable table'>";
+
+    resultText += "<tr><th>Project ID</th><td colspan='2'>" + featureAttributes.CONTROL_SECT_JOB + "</td></tr>";
+    resultText += "<tr><th>District Name</th><td colspan='2'>" + featureAttributes.DISTRICT_NAME + "</td></tr>";
+    resultText += "<tr><th>Classification</th><td colspan='2'>" + featureAttributes.PROJ_CLASS + "</td></tr>";
+
     resultText += "<tr><td></td><td>Target Date</td><td>Actual Date</td></tr>";
     resultText += "<tr><th>Start Design</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
     resultText += "<tr><th>Design 30% Complete</th><td>01/01/2016</td><td>01/01/2016</td></tr>";
