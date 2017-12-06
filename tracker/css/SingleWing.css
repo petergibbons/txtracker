@@ -46,7 +46,7 @@ button { white-space: normal; }
 #searchByYear input { color: #333; }
 
 #projectStatusOptions {
-  padding: 0 25px;
+  padding: 0 0;
 }
 
 .button {
@@ -58,6 +58,7 @@ button { white-space: normal; }
   font-weight: bold;
   letter-spacing: 2px;
   padding: 10px;
+  white-space: pre-wrap;
 }
 
 #btnGroupDrop1 { border: 1px solid #CCC; }
@@ -290,7 +291,7 @@ body, html, .row-offcanvas {
 #sidebar {
   width: inherit;
   width: 25%;
-  min-width: 280px;
+  min-width: 300px;
   /*max-width: 450px;*/
   float: left;
   height: 100%;
@@ -337,7 +338,7 @@ body, html, .row-offcanvas {
     /* fixing margin */
     .btn-group.btn-group-responsive .btn + .btn { margin-left: 0; }
 
-    
+
   }
 
 @media screen and (max-width: 1400px) {
@@ -353,7 +354,10 @@ body, html, .row-offcanvas {
     -webkit-border-bottom-right-radius: 5px !important;
    }
   .button, .search-from-year { margin-bottom: 10px !important; }
-.DB6AIconTD font { font-size: 23px !important;padding: 0 10px !important; }
+  .DB6AIconTD font { 
+    font-size: 23px !important;
+    padding: 0 10px !important; 
+  }
 
 
 

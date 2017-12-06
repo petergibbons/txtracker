@@ -48,7 +48,7 @@
     var contentsWidth = Math.round(w*.25);
     var contentsHeight = Math.round(h*.35);
 
-    document.getElementById("mnFE0BBC45_-0p").style.minWwidth = "230px";
+    document.getElementById("mnFE0BBC45_-0p").style.minWidth = "230px";
     document.getElementById("viewDiv").style.height = (h-0) + "px";
     document.getElementById("main").style.height = (h-0) + "px";
 
@@ -61,6 +61,8 @@
 
     var filterOptionsWidth = getComputedStyle(document.getElementById("filterOptions")).width;
     
+
+    // set advanced mode
     if( $("#mapOptions-advanced").length ) {
       var advanced = 'advanced';
       // in advanced mode
