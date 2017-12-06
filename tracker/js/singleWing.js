@@ -64,10 +64,9 @@
 
     // set advanced mode
     if( $("#mapOptions-advanced").length ) {
-      var advanced = 'advanced';
-      // in advanced mode
+      var advanced = 'advanced'; // in advanced mode
       if( w <= 1000 ){
-        document.getElementById("mapOptions-advanced").style.top = (h-240) + "px";
+        document.getElementById("mapOptions-advanced").style.top = (h-276) + "px";
       }else {
         document.getElementById("mapOptions-advanced").style.top = (h-150) + "px";
       }

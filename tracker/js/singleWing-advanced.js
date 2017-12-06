@@ -225,36 +225,49 @@
     document.getElementById("selectionResultsContainer").style.display = "block";
 
   }
-  
+  function unsetActiveMapLayerButton() {
+    document.getElementById("aadtLayer").style.backgroundColor = "#CA7C29";
+    document.getElementById("stateSenateLayer").style.backgroundColor = "#CA7C29";
+    document.getElementById("stateSenateLayer").style.backgroundColor = "#CA7C29";
+    document.getElementById("stateHouseLayer").style.backgroundColor = "#CA7C29";
+    document.getElementById("mpoLayer").style.backgroundColor = "#CA7C29";
+    document.getElementById("cogLayer").style.backgroundColor = "#CA7C29";
+  }
+
   function addAADT() {
     scaleDependentQueries();
     hideDisplayLayers();
     aadtDisplayLyr.show();
-    document.getElementById("aadtLayer").style.backgroundColor = "#DCDCDC";
+    unsetActiveMapLayerButton();
+    document.getElementById("aadtLayer").style.backgroundColor = "rgb(145, 90, 36)";
   }
 
   function addStateSenate() {
     hideDisplayLayers();
     senateDisplayLyr.show();
-    document.getElementById("stateSenateLayer").style.backgroundColor = "#DCDCDC";
+    unsetActiveMapLayerButton();
+    document.getElementById("stateSenateLayer").style.backgroundColor = "rgb(145, 90, 36)";
   }
 
   function addStateHouse() {
     hideDisplayLayers();
     houseDisplayLyr.show();
-    document.getElementById("stateHouseLayer").style.backgroundColor = "#DCDCDC";
+    unsetActiveMapLayerButton();
+    document.getElementById("stateHouseLayer").style.backgroundColor = "rgb(145, 90, 36)";
   }
 
   function addMPO() {
     hideDisplayLayers();
     mpoDisplayLyr.show();
-    document.getElementById("mpoLayer").style.backgroundColor = "#DCDCDC";
+    unsetActiveMapLayerButton();
+    document.getElementById("mpoLayer").style.backgroundColor = "rgb(145, 90, 36)";
   }
 
   function addCOG() {
     hideDisplayLayers();
     cogDisplayLyr.show();
-   document.getElementById("cogLayer").style.backgroundColor = "#DCDCDC";
+    unsetActiveMapLayerButton();
+    document.getElementById("cogLayer").style.backgroundColor = "rgb(145, 90, 36)";
   }
 
   function hideDisplayLayers() {
@@ -263,11 +276,7 @@
     houseDisplayLyr.hide();
     senateDisplayLyr.hide();
     cogDisplayLyr.hide();
-    document.getElementById("aadtLayer").style.backgroundColor = "white";
-    document.getElementById("cogLayer").style.backgroundColor = "white";
-    document.getElementById("mpoLayer").style.backgroundColor = "white";
-    document.getElementById("stateHouseLayer").style.backgroundColor = "white";
-    document.getElementById("stateSenateLayer").style.backgroundColor = "white";
+    unsetActiveMapLayerButton();
   }
 
 	function findProjects() {

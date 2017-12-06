@@ -64,7 +64,7 @@
                     <h3 class="letter-spaced">PHASE</h3>
                     <div id="searchByPhase" class="row">
                       <div class="col-lg-12">
-                        <input id="chkCS" type="checkbox" checked=true name="phases" value="Construction Scheduled"> <label for="chkCS">Under construction or begins soon</label></label><br>
+                        <input id="chkCS" type="checkbox" checked=true name="phases" value="Construction Scheduled"> <label for="chkCS">Under construction/begins soon</label></label><br>
                         <input id="chkFC" type="checkbox" checked=true name="phases" value="Finalizing for Construction"> <label for="chkFC">Construction within 4 years</label><br>
                         <input id="chkUD" type="checkbox" checked=true name="phases" value="Under Development"> <label for="chkUD">Construction in 4 to 10 years</label><br>
                         <input id="chkLTP" type="checkbox" checked=true name="phases" value="Long Term Planning"> <label for="chkLTP">Corridor Studies, 10+ years out</label><br>   
@@ -132,9 +132,6 @@
   </div>
   <div id="main">
       <div class="col-md-12">
-          <p class="visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
-          </p>
           
           <div id="viewDiv"></div>
           <div id="mapOptions-advanced">
@@ -142,26 +139,23 @@
               <img src="images/key.png" alt="Map Legend">
             </div><!-- legend -->
             <div id="header2" class="btn-group btn-group-responsive dropup">
+                
+              <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="glyphicon glyphicon-modal-window"></i> Map Layers <span class="caret"></span>
+                <span class="sr-only">Toggle Layers</span>
+              </button>
               <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
               <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
               <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
               <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
-
-                <div class="btn-group btn-group-vertical btn-group-responsive" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="glyphicon glyphicon-modal-window"></i> Map Layers <span class="caret"></span>
-                    <span class="sr-only">Toggle Layers</span>
-                  </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <button type="button" class="btn btn-default" onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</button><br>
-                      <button type="button" class="btn btn-default" onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">AADT</button><br>
-                      <button type="button" class="btn btn-default" onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</button><br>
-                      <button type="button" class="btn btn-default" onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</button><br>
-                      <button type="button" class="btn btn-default" onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</button>
-                      <button type="button" class="btn btn-default" onclick="hideDisplayLayers()" id="clearLayers" title="Click to turn off layers">Clear Layers</button>
-
-                    </div>
-                </div>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <button type="button" class="btn btn-default" onclick="addAADT()" id="aadtLayer" title="Add Annual Average Daily Traffic sites to the Map">AADT</button><br>
+                <button type="button" class="btn btn-default" onclick="addCOG()" id="cogLayer" title="Add Councils of Government to the Map">AADT</button><br>
+                <button type="button" class="btn btn-default" onclick="addMPO()" id="mpoLayer" title="Add Metropolitan Planning Organizations to the Map">MPO</button><br>
+                <button type="button" class="btn btn-default" onclick="addStateHouse()" id="stateHouseLayer" title="Add State House Boundaries to the Map">State House</button><br>
+                <button type="button" class="btn btn-default" onclick="addStateSenate()" id="stateSenateLayer" title="Add State Senate Boundaries to the Map">State Senate</button>
+                <button type="button" class="btn btn-default" onclick="hideDisplayLayers()" id="clearLayers" title="Click to turn off layers">Clear Layers</button>
+              </div><!-- .dropdown-menu -->
               
             </div><!-- header2-->
           </div><!-- mapOptions-advanced -->                        

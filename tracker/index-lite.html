@@ -81,26 +81,20 @@
   </div>
   <div id="main">
       <div class="col-md-12">
-          <p class="visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
-          </p>
-          
-                      <div id="viewDiv"></div>
-                      <div id="mapOptions">
-                        <div class="legend">
-                          <img src="images/key.png" alt="Map Legend">
-                        </div><!-- legend -->
-                        <div id="header2" class="btn-group btn-group-responsive">
-                          <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
-                          <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
-                          <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
-                          <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
-                        </div><!-- header2-->
-                      </div><!-- mapOptions -->                        
-
-
-      </div>
-  </div><!-- /main -->
+        <div id="viewDiv"></div>
+        <div id="mapOptions">
+          <div class="legend">
+            <img src="images/key.png" alt="Map Legend">
+          </div><!-- .legend -->
+          <div id="header2" class="btn-group btn-group-responsive">
+            <button type="button" class="btn btn-default" onclick="addTxDOT()" id="txdotMap" title="View the TxDOT Base Map">TxDOT</button>
+            <button type="button" class="btn btn-default" onclick="addStreets()" id="streets" title="View ESRI Streets">ESRI Streets</button>
+            <button type="button" class="btn btn-default" onclick="addImagery()" id="imagery" title="View Satellite Imagery">Imagery</button>
+            <button type="button" class="btn btn-default" onclick="openGoogleMaps()" id="googleMaps" title="Open Google Maps">Google Maps</button>
+          </div><!-- header2-->
+        </div><!-- mapOptions -->                        
+      </div><!-- .col-md-12 -->
+  </div><!-- #main -->
   <div id="selectionResultsContainer">
   <div id="selectionResultsContainerWrapper">
     <div id="selectionResultsControl">

@@ -58,10 +58,21 @@ button { white-space: normal; }
   font-weight: bold;
   letter-spacing: 2px;
   padding: 10px;
-  white-space: pre-wrap;
+  white-space: pre-wrap !important;
 }
 
-#btnGroupDrop1 { border: 1px solid #CCC; }
+#btnGroupDrop1 { 
+  border: 1px solid #CCC;
+  border-radius: 4px 0 0 4px !important;
+  -moz-border-radius: 4px 0 0 4px !important;
+  -webkit-border-radius: 4px 0 0 4px !important; 
+}
+
+.btn-group.btn-group-responsive #googleMaps {   
+  border-radius: 0 4px 4px 0 !important;
+  -moz-border-radius: 0 4px 4px 0 !important;
+  -webkit-border-radius: 0 4px 4px 0 !important; 
+}
 
 .btn-group-vertical>.btn:first-child:not(:last-child) {
     
@@ -78,9 +89,9 @@ button { white-space: normal; }
   top: 20px;  
   max-height: 800px;
   background-size: 100% 100%;
-  
-
+  z-index: 99;
 }
+
 #selectionResultsContainerWrapper {
   width: 95%;
   margin: 20px auto;
@@ -126,6 +137,12 @@ button { white-space: normal; }
   width: 94% !important;
 }
 
+#mapOptions-advanced .btn-group-responsive>#googleMaps {
+  border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0 0 4px 4px;
+}
+
 #mapOptions button, #mapOptions-advanced button { 
   background-color: #CA7C29;
   color: #fff;
@@ -137,8 +154,10 @@ button { white-space: normal; }
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  width: 900px;
 }
-  #mapOptions-advanced .dropdown-menu .btn, #clearLayers { width: 100px; }
+
+#mapOptions-advanced .dropdown-menu .btn { width: 150px; }
 
 #header {
   position: absolute;
@@ -325,19 +344,33 @@ body, html, .row-offcanvas {
 
 /* stack buttons on small screen */
   @media (max-width: 991px) {
-    .btn-group.btn-group-responsive > .btn {
+    
+    .btn-group.btn-group-responsive > .btn{
       display: block;
-      width: 100%;
+      width: 70%;
     }
+
     
     /* making the border-radius correct */
     .btn-group.btn-group-responsive > .btn:first-child { border-radius: 6px 6px 0 0; }
     .btn-group.btn-group-responsive > .btn:first-child:not(:last-child):not(.dropdown-toggle) { border-top-right-radius: 6px; }
     .btn-group.btn-group-responsive > .btn:last-child:not(:first-child) { border-radius: 0 0 6px 6px; }
+
     
     /* fixing margin */
     .btn-group.btn-group-responsive .btn + .btn { margin-left: 0; }
 
+    #btnGroupDrop1 { 
+      border-radius: 4px 4px 0 0 !important;
+      -moz-border-radius: 4px 4px 0 0 !important;
+      -webkit-border-radius: 4px 4px 0 0 !important; 
+    }
+
+    #mapOptions-advanced #googleMaps {
+      border-radius: 0 0 4px 4px !important;
+      -moz-border-radius: 0 0 4px 4px !important;
+      -webkit-border-radius: 0 0 4px 4px !important; 
+    }
 
   }
 
